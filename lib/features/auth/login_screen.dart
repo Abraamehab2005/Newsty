@@ -9,7 +9,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   bool isVisible = false;
 
@@ -45,25 +46,16 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 16),
               CustomTextFormField(
-                controller: controller,
-                hintText: "usama@gmail.com",
+                controller: emailController,
+                hintText: "ebraam@gmail.com",
                 title: "Email",
               ),
               SizedBox(height: 16),
               CustomTextFormField(
-                controller: controller,
+                controller: passwordController,
                 hintText: "*************",
                 title: "Password",
-                suffix: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isVisible = !isVisible;
-                    });
-                  },
-                  icon: isVisible
-                      ? Icon(Icons.visibility_off)
-                      : Icon(Icons.visibility),
-                ),
+                obscureText: true,
               ),
             ],
           ),
