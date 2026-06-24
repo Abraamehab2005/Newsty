@@ -87,40 +87,85 @@ class TrendingNews extends StatelessWidget {
                                     (BuildContext context, int index) =>
                                         SizedBox(width: 12),
                                 itemBuilder: (BuildContext context, int index) {
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Stack(
-                                      children: [
-                                        if (controller
-                                                .newsEveryThingList[index]
-                                                .urlToImage !=
-                                            null)
-                                          Image.network(
-                                            controller
-                                                .newsEveryThingList[index]
-                                                .urlToImage!,
-                                            width: 240,
-                                            height: 140,
-                                          ),
-                                        Positioned.fill(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                                colors: [
-                                                  Colors.black.withValues(
-                                                    alpha: 0.5,
-                                                  ),
-                                                  Colors.black.withValues(
-                                                    alpha: 0.7,
-                                                  ),
-                                                ],
+                                  final model =
+                                      controller.newsEveryThingList[index];
+                                  return SizedBox(
+                                    width: 240,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Stack(
+                                        children: [
+                                          if (model.urlToImage != null)
+                                            Image.network(
+                                              model.urlToImage!,
+                                              width: 240,
+                                              height: 140,
+                                            ),
+                                          Positioned.fill(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Colors.black.withValues(
+                                                      alpha: 0.5,
+                                                    ),
+                                                    Colors.black.withValues(
+                                                      alpha: 0.7,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                          Positioned(
+                                            bottom: 12,
+                                            left: 12,
+                                            right: 12,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  maxLines: 2,
+                                                  model.title.toString(),
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Color(0xFFFFFCFC),
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                SizedBox(height: 6),
+                                                Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      backgroundImage:
+                                                          NetworkImage(
+                                                            model.urlToImage
+                                                                .toString(),
+                                                          ),
+                                                      radius: 10,
+                                                    ),
+                                                    SizedBox(width: 6),
+                                                    Text(
+                                                      model.author.toString(),
+                                                      style: TextStyle(
+                                                        color: Color(
+                                                          0xFFFFFCFC,
+                                                        ),
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ), // remeber this if eny error occure
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },
