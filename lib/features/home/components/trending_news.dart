@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/enums/request_status_enum.dart';
 import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/features/home/home_controller.dart';
 import 'package:provider/provider.dart';
@@ -69,39 +70,62 @@ class TrendingNews extends StatelessWidget {
                           HomeController controller,
                           Widget? child,
                         ) {
-                          return (controller.errorMessage?.isNotEmpty ?? false)
-                              ? Center(child: Text(controller.errorMessage!))
-                              : controller.everyThingLoading
-                              ? Center(child: CircularProgressIndicator())
-                              : ListView.separated(
-                                  itemCount:
-                                      controller.newsEveryThingList.length,
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder:
-                                      (BuildContext context, int index) =>
-                                          SizedBox(width: 12),
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                        return ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                            8,
+                          switch (controller.everyThingStatus) {
+                            case RequestStatusEnum.loading:
+                              return Center(child: CircularProgressIndicator());
+                            case RequestStatusEnum.error:
+                              return Center(
+                                child: Text(controller.errorMessage!),
+                              );
+
+                            case RequestStatusEnum.loaded:
+                              return ListView.separated(
+                                padding: EdgeInsets.only(left: 16),
+                                itemCount: controller.newsEveryThingList.length,
+                                scrollDirection: Axis.horizontal,
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        SizedBox(width: 12),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Stack(
+                                      children: [
+                                        if (controller
+                                                .newsEveryThingList[index]
+                                                .urlToImage !=
+                                            null)
+                                          Image.network(
+                                            controller
+                                                .newsEveryThingList[index]
+                                                .urlToImage!,
+                                            width: 240,
+                                            height: 140,
                                           ),
-                                          child: Stack(
-                                            children: [
-                                              if (controller
-                                                      .newsEveryThingList[index]
-                                                      .urlToImage !=
-                                                  null)
-                                                Image.network(
-                                                  controller
-                                                      .newsEveryThingList[index]
-                                                      .urlToImage!,
-                                                ),
-                                            ],
+                                        Positioned.fill(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Colors.black.withValues(
+                                                    alpha: 0.5,
+                                                  ),
+                                                  Colors.black.withValues(
+                                                    alpha: 0.7,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ),
-                                        );
-                                      },
-                                );
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                          }
                         },
                   ),
                 ),
