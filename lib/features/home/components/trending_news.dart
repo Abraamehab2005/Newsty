@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/enums/request_status_enum.dart';
 import 'package:news_app/core/theme/light_color.dart';
+import 'package:news_app/features/home/components/view_all_component.dart';
 import 'package:news_app/features/home/home_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -34,32 +35,7 @@ class TrendingNews extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 6),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Trending News",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        "View all",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          decoration: TextDecoration.underline,
-                          decorationColor: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                ViewAllComponent(title: "Trending News", onTap: () {}),
                 SizedBox(height: 12),
                 SizedBox(
                   height: 140,
@@ -81,7 +57,9 @@ class TrendingNews extends StatelessWidget {
                             case RequestStatusEnum.loaded:
                               return ListView.separated(
                                 padding: EdgeInsets.only(left: 16),
-                                itemCount: controller.newsEveryThingList.length,
+                                itemCount: controller.newsEveryThingList
+                                    .take(6)
+                                    .length,
                                 scrollDirection: Axis.horizontal,
                                 separatorBuilder:
                                     (BuildContext context, int index) =>
@@ -139,22 +117,47 @@ class TrendingNews extends StatelessWidget {
                                                 SizedBox(height: 6),
                                                 Row(
                                                   children: [
-                                                    CircleAvatar(
-                                                      backgroundImage:
-                                                          NetworkImage(
-                                                            model.urlToImage
-                                                                .toString(),
+                                                    Expanded(
+                                                      child: Row(
+                                                        children: [
+                                                          CircleAvatar(
+                                                            backgroundImage:
+                                                                NetworkImage(
+                                                                  model
+                                                                      .urlToImage
+                                                                      .toString(),
+                                                                ),
+                                                            radius: 10,
                                                           ),
-                                                      radius: 10,
+                                                          SizedBox(width: 6),
+                                                          Expanded(
+                                                            child: Text(
+                                                              maxLines: 1,
+                                                              model.author ??
+                                                                  "",
+                                                              style: TextStyle(
+                                                                color: Color(
+                                                                  0xFFFFFCFC,
+                                                                ),
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                    SizedBox(width: 6),
                                                     Text(
-                                                      model.author.toString(),
+                                                      formatDateTime(
+                                                        model.publishedAt,
+                                                      ),
                                                       style: TextStyle(
                                                         color: Color(
                                                           0xFFFFFCFC,
                                                         ),
-                                                        fontSize: 12,
+                                                        fontSize: 14,
                                                         fontWeight:
                                                             FontWeight.w400,
                                                       ),
@@ -162,7 +165,7 @@ class TrendingNews extends StatelessWidget {
                                                   ],
                                                 ),
                                               ],
-                                            ), // remeber this if eny error occure
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -180,5 +183,18 @@ class TrendingNews extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // TODO : Refactor
+  String formatDateTime(String? date) {
+    if (date == null) return "";
+    final diff = DateTime.now().difference(DateTime.parse(date));
+    if (diff.inMinutes < 60) {
+      return "${diff.inMinutes}m ago";
+    }
+    if (diff.inHours < 24) {
+      return "${diff.inHours}h ago";
+    }
+    return "${diff.inDays}d ago";
   }
 }

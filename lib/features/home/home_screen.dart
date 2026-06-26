@@ -3,6 +3,7 @@ import 'package:news_app/core/datasource/remote_data/api_config.dart';
 import 'package:news_app/core/datasource/remote_data/api_service.dart';
 import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/features/home/components/trending_news.dart';
+import 'package:news_app/features/home/components/view_all_component.dart';
 import 'package:news_app/features/home/home_controller.dart';
 import 'package:news_app/features/home/models/news_article_model.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,18 @@ class HomeScreen extends StatelessWidget {
       child: Consumer<HomeController>(
         builder:
             (BuildContext context, HomeController controller, Widget? child) {
-              return Scaffold(body: Column(children: [TrendingNews()]));
+              return Scaffold(
+                body: Column(
+                  children: [
+                    TrendingNews(),
+                    ViewAllComponent(
+                      title: "Categories",
+                      titleColor: Color(0xFF141414),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              );
             },
       ),
     );
