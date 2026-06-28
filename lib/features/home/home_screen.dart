@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/core/datasource/remote_data/api_config.dart';
-import 'package:news_app/core/datasource/remote_data/api_service.dart';
-import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/features/home/components/categories_list.dart';
 import 'package:news_app/features/home/components/trending_news.dart';
 import 'package:news_app/features/home/components/view_all_component.dart';
 import 'package:news_app/features/home/home_controller.dart';
-import 'package:news_app/features/home/models/news_article_model.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,15 +15,30 @@ class HomeScreen extends StatelessWidget {
         builder:
             (BuildContext context, HomeController controller, Widget? child) {
               return Scaffold(
-                body: Column(
-                  children: [
+                body: CustomScrollView(
+                  slivers: [
                     TrendingNews(),
-                    ViewAllComponent(
-                      title: "Categories",
-                      titleColor: Color(0xFF141414),
-                      onTap: () {},
+                    SliverToBoxAdapter(
+                      child: ViewAllComponent(
+                        title: "Categories",
+                        titleColor: Color(0xFF141414),
+                        onTap: () {},
+                      ),
                     ),
                     CategoriesList(),
+                    SliverList.builder(
+                      itemCount: controller.newsTopHeadLineList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 20,
+                            width: 50,
+                            color: Colors.red,
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               );

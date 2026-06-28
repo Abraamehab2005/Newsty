@@ -10,177 +10,179 @@ class TrendingNews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 330,
-      child: Stack(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            height: 240,
-            child: Image.asset(
-              "assets/images/background.png",
-              fit: BoxFit.cover,
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: 330,
+        child: Stack(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 240,
+              child: Image.asset(
+                "assets/images/background.png",
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Positioned.fill(
-            top: 60,
-            child: Column(
-              children: [
-                Text(
-                  "NEWST",
-                  style: TextStyle(
-                    color: LightColors.primaryColor,
-                    fontSize: 40,
-                    fontWeight: FontWeight.w600,
+            Positioned.fill(
+              top: 60,
+              child: Column(
+                children: [
+                  Text(
+                    "NEWST",
+                    style: TextStyle(
+                      color: LightColors.primaryColor,
+                      fontSize: 40,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                SizedBox(height: 6),
-                ViewAllComponent(title: "Trending News", onTap: () {}),
-                SizedBox(height: 12),
-                SizedBox(
-                  height: 140,
-                  child: Consumer<HomeController>(
-                    builder:
-                        (
-                          BuildContext context,
-                          HomeController controller,
-                          Widget? child,
-                        ) {
-                          switch (controller.everyThingStatus) {
-                            case RequestStatusEnum.loading:
-                              return Center(child: CircularProgressIndicator());
-                            case RequestStatusEnum.error:
-                              return Center(
-                                child: Text(controller.errorMessage!),
-                              );
-
-                            case RequestStatusEnum.loaded:
-                              return ListView.separated(
-                                padding: EdgeInsets.only(left: 16),
-                                itemCount: controller.newsEveryThingList
-                                    .take(6)
-                                    .length,
-                                scrollDirection: Axis.horizontal,
-                                separatorBuilder:
-                                    (BuildContext context, int index) =>
-                                        SizedBox(width: 12),
-                                itemBuilder: (BuildContext context, int index) {
-                                  final model =
-                                      controller.newsEveryThingList[index];
-                                  return SizedBox(
-                                    width: 240,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Stack(
-                                        children: [
-                                          if (model.urlToImage != null)
-                                            Image.network(
-                                              model.urlToImage!,
-                                              width: 240,
-                                              height: 140,
-                                            ),
-                                          Positioned.fill(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                gradient: LinearGradient(
-                                                  begin: Alignment.topCenter,
-                                                  end: Alignment.bottomCenter,
-                                                  colors: [
-                                                    Colors.black.withValues(
-                                                      alpha: 0.5,
-                                                    ),
-                                                    Colors.black.withValues(
-                                                      alpha: 0.7,
-                                                    ),
-                                                  ],
+                  SizedBox(height: 6),
+                  ViewAllComponent(title: "Trending News", onTap: () {}),
+                  SizedBox(height: 12),
+                  SizedBox(
+                    height: 140,
+                    child: Consumer<HomeController>(
+                      builder:
+                          (
+                            BuildContext context,
+                            HomeController controller,
+                            Widget? child,
+                          ) {
+                            switch (controller.everyThingStatus) {
+                              case RequestStatusEnum.loading:
+                                return Center(child: CircularProgressIndicator());
+                              case RequestStatusEnum.error:
+                                return Center(
+                                  child: Text(controller.errorMessage!),
+                                );
+      
+                              case RequestStatusEnum.loaded:
+                                return ListView.separated(
+                                  padding: EdgeInsets.only(left: 16),
+                                  itemCount: controller.newsEveryThingList
+                                      .take(6)
+                                      .length,
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                          SizedBox(width: 12),
+                                  itemBuilder: (BuildContext context, int index) {
+                                    final model =
+                                        controller.newsEveryThingList[index];
+                                    return SizedBox(
+                                      width: 240,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Stack(
+                                          children: [
+                                            if (model.urlToImage != null)
+                                              Image.network(
+                                                model.urlToImage!,
+                                                width: 240,
+                                                height: 140,
+                                              ),
+                                            Positioned.fill(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment.bottomCenter,
+                                                    colors: [
+                                                      Colors.black.withValues(
+                                                        alpha: 0.5,
+                                                      ),
+                                                      Colors.black.withValues(
+                                                        alpha: 0.7,
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          Positioned(
-                                            bottom: 12,
-                                            left: 12,
-                                            right: 12,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  maxLines: 2,
-                                                  model.title.toString(),
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Color(0xFFFFFCFC),
-                                                    fontWeight: FontWeight.w700,
+                                            Positioned(
+                                              bottom: 12,
+                                              left: 12,
+                                              right: 12,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    maxLines: 2,
+                                                    model.title.toString(),
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Color(0xFFFFFCFC),
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
                                                   ),
-                                                ),
-                                                SizedBox(height: 6),
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: Row(
-                                                        children: [
-                                                          CircleAvatar(
-                                                            backgroundImage:
-                                                                NetworkImage(
-                                                                  model
-                                                                      .urlToImage
-                                                                      .toString(),
+                                                  SizedBox(height: 6),
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Row(
+                                                          children: [
+                                                            CircleAvatar(
+                                                              backgroundImage:
+                                                                  NetworkImage(
+                                                                    model
+                                                                        .urlToImage
+                                                                        .toString(),
+                                                                  ),
+                                                              radius: 10,
+                                                            ),
+                                                            SizedBox(width: 6),
+                                                            Expanded(
+                                                              child: Text(
+                                                                maxLines: 1,
+                                                                model.author ??
+                                                                    "",
+                                                                style: TextStyle(
+                                                                  color: Color(
+                                                                    0xFFFFFCFC,
+                                                                  ),
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
                                                                 ),
-                                                            radius: 10,
-                                                          ),
-                                                          SizedBox(width: 6),
-                                                          Expanded(
-                                                            child: Text(
-                                                              maxLines: 1,
-                                                              model.author ??
-                                                                  "",
-                                                              style: TextStyle(
-                                                                color: Color(
-                                                                  0xFFFFFCFC,
-                                                                ),
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      formatDateTime(
-                                                        model.publishedAt,
-                                                      ),
-                                                      style: TextStyle(
-                                                        color: Color(
-                                                          0xFFFFFCFC,
+                                                          ],
                                                         ),
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400,
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                                      Text(
+                                                        formatDateTime(
+                                                          model.publishedAt,
+                                                        ),
+                                                        style: TextStyle(
+                                                          color: Color(
+                                                            0xFFFFFCFC,
+                                                          ),
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
-                          }
-                        },
+                                    );
+                                  },
+                                );
+                            }
+                          },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
