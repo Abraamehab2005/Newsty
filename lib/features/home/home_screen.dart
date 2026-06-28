@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/datasource/remote_data/api_config.dart';
 import 'package:news_app/core/datasource/remote_data/api_service.dart';
 import 'package:news_app/core/theme/light_color.dart';
+import 'package:news_app/features/home/components/categories_list.dart';
 import 'package:news_app/features/home/components/trending_news.dart';
 import 'package:news_app/features/home/components/view_all_component.dart';
 import 'package:news_app/features/home/home_controller.dart';
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
                       titleColor: Color(0xFF141414),
                       onTap: () {},
                     ),
+                    CategoriesList(),
                   ],
                 ),
               );

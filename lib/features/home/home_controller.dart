@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/datasource/remote_data/api_config.dart';
 import 'package:news_app/core/datasource/remote_data/api_service.dart';
 import 'package:news_app/core/enums/request_status_enum.dart';
+import 'package:news_app/features/home/components/categories_list.dart';
 import 'package:news_app/features/home/models/news_article_model.dart';
 
 class HomeController extends ChangeNotifier {
@@ -14,11 +16,13 @@ class HomeController extends ChangeNotifier {
 
   bool topHeadLineLoading = true;
   String? errorMessage;
+  String? selectedCategory;
+
   List<NewsArticleModel> newsTopHeadLineList = [];
   List<NewsArticleModel> newsEveryThingList = [];
   ApiService apiService = ApiService();
 
-  getTopHeadline() async {
+  getTopHeadline({String? category}) async {
     try {
       Map<String, dynamic> result = await apiService.get(
         ApiConfig.topHeadlines,
@@ -49,10 +53,15 @@ class HomeController extends ChangeNotifier {
       everyThingStatus = RequestStatusEnum.loaded;
       errorMessage = null;
     } catch (e) {
-     
       errorMessage = e.toString();
-       everyThingStatus = RequestStatusEnum.error;
+      everyThingStatus = RequestStatusEnum.error;
     }
+    notifyListeners();
+  }
+
+  void updateSelectedCategory(String category) {
+    selectedCategory = category;
+   // getTopHeadline(category: selectedCategory);
     notifyListeners();
   }
 }
