@@ -1,7 +1,9 @@
 import 'dart:math';
 
+
 import 'package:flutter/material.dart';
 import 'package:news_app/core/extentions/date_time_extenion.dart';
+import 'package:news_app/core/widgets/custom_cached_network_image.dart';
 import 'package:news_app/features/home/home_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -23,48 +25,13 @@ class TopHeadline extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  model.urlToImage != null && model.urlToImage!.isNotEmpty
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            model.urlToImage ?? "",
-                            height: 80,
-                            width: 180,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                height: 70,
-                                width: 120,
-                                color: Colors.grey[300],
-                                child: const Icon(
-                                  Icons.broken_image,
-                                  color: Colors.grey,
-                                ),
-                              );
-                            },
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return const SizedBox(
-                                height: 70,
-                                width: 120,
-                                child: Center(
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                      : Container(
-                          height: 70,
-                          width: 120,
-                          color: Colors.grey[300],
-                          child: const Icon(
-                            Icons.image_not_supported,
-                            color: Colors.grey,
-                          ),
-                        ),
+                  // model.urlToImage != null && model.urlToImage!.isNotEmpty
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: CustomCachedNetworkImage(
+                      imagePath: model.urlToImage ?? "",
+                    ),
+                  ),
                   SizedBox(width: 8),
                   Expanded(
                     child: Column(

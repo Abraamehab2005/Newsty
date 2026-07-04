@@ -1,10 +1,8 @@
-import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:news_app/core/extentions/date_time_extenion.dart';
 import 'package:news_app/features/home/components/categories_list.dart';
 import 'package:news_app/features/home/components/top_headline.dart';
 import 'package:news_app/features/home/components/trending_news.dart';
-import 'package:news_app/features/home/components/view_all_component.dart';
 import 'package:news_app/features/home/home_controller.dart';
 import 'package:provider/provider.dart';
 
