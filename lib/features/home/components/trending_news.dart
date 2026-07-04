@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/enums/request_status_enum.dart';
+import 'package:news_app/core/extentions/date_time_extenion.dart';
 import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/features/home/components/view_all_component.dart';
 import 'package:news_app/features/home/home_controller.dart';
@@ -49,12 +50,14 @@ class TrendingNews extends StatelessWidget {
                           ) {
                             switch (controller.everyThingStatus) {
                               case RequestStatusEnum.loading:
-                                return Center(child: CircularProgressIndicator());
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
                               case RequestStatusEnum.error:
                                 return Center(
                                   child: Text(controller.errorMessage!),
                                 );
-      
+
                               case RequestStatusEnum.loaded:
                                 return ListView.separated(
                                   padding: EdgeInsets.only(left: 16),
@@ -112,7 +115,8 @@ class TrendingNews extends StatelessWidget {
                                                     style: TextStyle(
                                                       fontSize: 14,
                                                       color: Color(0xFFFFFCFC),
-                                                      fontWeight: FontWeight.w700,
+                                                      fontWeight:
+                                                          FontWeight.w700,
                                                     ),
                                                   ),
                                                   SizedBox(height: 6),
@@ -151,9 +155,8 @@ class TrendingNews extends StatelessWidget {
                                                         ),
                                                       ),
                                                       Text(
-                                                        formatDateTime(
-                                                          model.publishedAt,
-                                                        ),
+                                                        model.publishedAt
+                                                            .formatDateTime(),
                                                         style: TextStyle(
                                                           color: Color(
                                                             0xFFFFFCFC,
@@ -185,18 +188,5 @@ class TrendingNews extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  // TODO : Refactor
-  String formatDateTime(String? date) {
-    if (date == null) return "";
-    final diff = DateTime.now().difference(DateTime.parse(date));
-    if (diff.inMinutes < 60) {
-      return "${diff.inMinutes}m ago";
-    }
-    if (diff.inHours < 24) {
-      return "${diff.inHours}h ago";
-    }
-    return "${diff.inDays}d ago";
   }
 }

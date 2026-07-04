@@ -1,10 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:news_app/core/extentions/date_time_extenion.dart';
 import 'package:news_app/features/home/components/categories_list.dart';
 import 'package:news_app/features/home/components/trending_news.dart';
 import 'package:news_app/features/home/components/view_all_component.dart';
 import 'package:news_app/features/home/home_controller.dart';
 import 'package:provider/provider.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
   @override
@@ -130,9 +132,7 @@ class HomeScreen extends StatelessWidget {
                                               ),
                                               SizedBox(width: 8),
                                               Text(
-                                                formatDateTime(
-                                                  model.publishedAt ?? "",
-                                                ),
+                                                model.publishedAt.formatDateTime(),
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w400,
@@ -158,18 +158,5 @@ class HomeScreen extends StatelessWidget {
             },
       ),
     );
-  }
-
-  // TODO : Refactor
-  String formatDateTime(String? date) {
-    if (date == null) return "";
-    final diff = DateTime.now().difference(DateTime.parse(date));
-    if (diff.inMinutes < 60) {
-      return "${diff.inMinutes}m ago";
-    }
-    if (diff.inHours < 24) {
-      return "${diff.inHours}h ago";
-    }
-    return "${diff.inDays}d ago";
   }
 }
