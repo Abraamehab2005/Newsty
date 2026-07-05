@@ -1,9 +1,10 @@
 import 'dart:math';
 
-
 import 'package:flutter/material.dart';
+import 'package:news_app/core/enums/request_status_enum.dart';
 import 'package:news_app/core/extentions/date_time_extenion.dart';
 import 'package:news_app/core/widgets/custom_cached_network_image.dart';
+import 'package:news_app/features/home/components/top_headline_shimmer.dart';
 import 'package:news_app/features/home/home_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -13,87 +14,99 @@ class TopHeadline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeController>(
-      builder: (BuildContext context, HomeController controller, Widget? child) {
-        return SliverList.builder(
-          itemCount: controller.newsTopHeadLineList.length,
-          itemBuilder: (BuildContext context, int index) {
-            final model = controller.newsTopHeadLineList[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 8,
-              ),
-              child: Row(
-                children: [
-                  // model.urlToImage != null && model.urlToImage!.isNotEmpty
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: CustomCachedNetworkImage(
-                      imagePath: model.urlToImage ?? "",
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          model.title.toString(),
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            overflow: TextOverflow.ellipsis,
+      builder:
+          (BuildContext context, HomeController controller, Widget? child) {
+            switch (controller.newsTopHeadLineStates) {
+              case RequestStatusEnum.loading:
+                return TopHeadlineShimmer();
+              case RequestStatusEnum.error:
+                return SliverToBoxAdapter(
+                  child: Center(child: Text(controller.errorMessage!)),
+                );
+              case RequestStatusEnum.loaded:
+                return SliverList.builder(
+                  itemCount: controller.newsTopHeadLineList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final model = controller.newsTopHeadLineList[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8,
+                      ),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: CustomCachedNetworkImage(
+                              imagePath: model.urlToImage ?? "",
+                            ),
                           ),
-                          maxLines: 2,
-                        ),
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 10,
-                              backgroundImage: NetworkImage(
-                                model.urlToImage ?? "",
-                              ),
-                            ),
-                            SizedBox(width: 6),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Text(
-                                    (model.author ?? "").substring(
-                                      0,
-                                      min((model.author ?? "").length, 10),
-                                    ),
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xFF141414),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                          SizedBox(width: 8),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  model.title.toString(),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    model.publishedAt.formatDateTime(),
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xFF141414),
+                                  maxLines: 2,
+                                ),
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 10,
+                                      backgroundImage: NetworkImage(
+                                        model.urlToImage ?? "",
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
+                                    SizedBox(width: 6),
+                                    Expanded(
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            (model.author ?? "").substring(
+                                              0,
+                                              min(
+                                                (model.author ?? "").length,
+                                                10,
+                                              ),
+                                            ),
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color(0xFF141414),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          SizedBox(width: 8),
+                                          Text(
+                                            model.publishedAt.formatDateTime(),
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color(0xFF141414),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+            }
           },
-        );
-      },
     );
   }
 }

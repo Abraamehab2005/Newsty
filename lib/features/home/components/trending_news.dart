@@ -3,9 +3,11 @@ import 'package:news_app/core/enums/request_status_enum.dart';
 import 'package:news_app/core/extentions/date_time_extenion.dart';
 import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/core/widgets/custom_cached_network_image.dart';
+import 'package:news_app/features/home/components/trending_news_shimmer.dart';
 import 'package:news_app/features/home/components/view_all_component.dart';
 import 'package:news_app/features/home/home_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class TrendingNews extends StatelessWidget {
   const TrendingNews({super.key});
@@ -51,9 +53,7 @@ class TrendingNews extends StatelessWidget {
                           ) {
                             switch (controller.everyThingStatus) {
                               case RequestStatusEnum.loading:
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
+                                return TrendingNewsShimmer();
                               case RequestStatusEnum.error:
                                 return Center(
                                   child: Text(controller.errorMessage!),
