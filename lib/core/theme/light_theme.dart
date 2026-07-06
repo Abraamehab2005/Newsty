@@ -7,7 +7,13 @@ ThemeData lightTheme = ThemeData(
   colorScheme: ColorScheme.light(),
   scaffoldBackgroundColor: Color(0xFFf5f5f5),
   primaryColor: LightColors.primaryColor,
-  appBarTheme: AppBarTheme(backgroundColor: Color(0xFFFFFFFF)),
+  appBarTheme: AppBarTheme(backgroundColor: Color(0xFFFFFFFF),
+  titleTextStyle: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: Color(0xFF141414)
+  ),
+  ),
   progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.white),
   // appBarTheme: AppBarTheme(
   //   backgroundColor: Color(0xFFF6F7F9),

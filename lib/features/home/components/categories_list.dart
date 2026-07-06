@@ -23,8 +23,11 @@ class CategoriesList extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return CategoriesScreen();
+                          builder: (BuildContext _) {
+                            return ChangeNotifierProvider.value(
+                              value: context.read<HomeController>(),
+                              child: CategoriesScreen(),
+                            );
                           },
                         ),
                       );

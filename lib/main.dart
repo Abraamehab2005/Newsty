@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
 import 'package:news_app/core/theme/light_theme.dart';
-import 'package:news_app/features/home/home_controller.dart';
-import 'package:news_app/features/home/home_screen.dart';
-import 'package:news_app/features/main/main_screen.dart';
-import 'package:news_app/features/onboarding/onboarding_screen.dart';
 import 'package:news_app/features/splash/splash_screen.dart';
-import 'package:provider/provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PreferencesManager().init();
   runApp(
-    ChangeNotifierProvider(
-      create: (BuildContext context) {
-        return HomeController();
-      },
-      child: const NewsApp(),
-    ),
+    const NewsApp(),
   );
 }
 
