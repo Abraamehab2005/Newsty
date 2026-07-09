@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/enums/request_status_enum.dart';
 import 'package:news_app/core/extentions/date_time_extenion.dart';
 import 'package:news_app/core/theme/light_color.dart';
@@ -7,7 +8,6 @@ import 'package:news_app/features/home/components/trending_news_shimmer.dart';
 import 'package:news_app/features/home/components/view_all_component.dart';
 import 'package:news_app/features/home/home_controller.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 class TrendingNews extends StatelessWidget {
   const TrendingNews({super.key});
@@ -16,34 +16,34 @@ class TrendingNews extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 330,
+        height: AppSize.h330,
         child: Stack(
           children: [
             SizedBox(
               width: double.infinity,
-              height: 240,
+              height: AppSize.h240,
               child: Image.asset(
                 "assets/images/background.png",
                 fit: BoxFit.cover,
               ),
             ),
             Positioned.fill(
-              top: 60,
+              top: AppSize.ph60,
               child: Column(
                 children: [
                   Text(
                     "NEWST",
                     style: TextStyle(
                       color: LightColors.primaryColor,
-                      fontSize: 40,
+                      fontSize: AppSize.sp40,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 6),
+                  SizedBox(height: AppSize.ph6),
                   ViewAllComponent(title: "Trending News", onTap: () {}),
-                  SizedBox(height: 12),
+                  SizedBox(height: AppSize.ph12),
                   SizedBox(
-                    height: 140,
+                    height: AppSize.h140,
                     child: Consumer<HomeController>(
                       builder:
                           (
@@ -61,29 +61,31 @@ class TrendingNews extends StatelessWidget {
 
                               case RequestStatusEnum.loaded:
                                 return ListView.separated(
-                                  padding: EdgeInsets.only(left: 16),
+                                  padding: EdgeInsets.only(left: AppSize.pw16),
                                   itemCount: controller.newsEveryThingList
                                       .take(6)
                                       .length,
                                   scrollDirection: Axis.horizontal,
                                   separatorBuilder:
                                       (BuildContext context, int index) =>
-                                          SizedBox(width: 12),
+                                          SizedBox(width: AppSize.pw12),
                                   itemBuilder: (BuildContext context, int index) {
                                     final model =
                                         controller.newsEveryThingList[index];
                                     return SizedBox(
-                                      width: 240,
+                                      width: AppSize.pw240,
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
+                                        borderRadius: BorderRadius.circular(
+                                          AppSize.r8,
+                                        ),
                                         child: Stack(
                                           children: [
                                             if (model.urlToImage != null)
                                               CustomCachedNetworkImage(
                                                 imagePath:
                                                     model.urlToImage ?? "",
-                                                height: 140,
-                                                width: 240,
+                                                height: AppSize.h140,
+                                                width: AppSize.w240,
                                               ),
                                             Positioned.fill(
                                               child: Container(
@@ -104,9 +106,9 @@ class TrendingNews extends StatelessWidget {
                                               ),
                                             ),
                                             Positioned(
-                                              bottom: 12,
-                                              left: 12,
-                                              right: 12,
+                                              bottom: AppSize.ph12,
+                                              left: AppSize.pw12,
+                                              right: AppSize.pw12,
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -121,7 +123,7 @@ class TrendingNews extends StatelessWidget {
                                                           FontWeight.w700,
                                                     ),
                                                   ),
-                                                  SizedBox(height: 6),
+                                                  SizedBox(height: AppSize.ph6),
                                                   Row(
                                                     children: [
                                                       Expanded(
@@ -134,9 +136,9 @@ class TrendingNews extends StatelessWidget {
                                                                         .urlToImage
                                                                         .toString(),
                                                                   ),
-                                                              radius: 10,
+                                                              radius: AppSize.r10,
                                                             ),
-                                                            SizedBox(width: 6),
+                                                            SizedBox(width: AppSize.pw6),
                                                             Expanded(
                                                               child: Text(
                                                                 maxLines: 1,
@@ -146,7 +148,7 @@ class TrendingNews extends StatelessWidget {
                                                                   color: Color(
                                                                     0xFFFFFCFC,
                                                                   ),
-                                                                  fontSize: 12,
+                                                                  fontSize: AppSize.sp12,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w400,
@@ -163,7 +165,7 @@ class TrendingNews extends StatelessWidget {
                                                           color: Color(
                                                             0xFFFFFCFC,
                                                           ),
-                                                          fontSize: 14,
+                                                          fontSize: AppSize.sp14,
                                                           fontWeight:
                                                               FontWeight.w400,
                                                         ),
