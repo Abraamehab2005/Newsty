@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/datasource/remote_data/api_config.dart';
 import 'package:news_app/core/datasource/remote_data/api_service.dart';
 import 'package:news_app/core/enums/request_status_enum.dart';
-import 'package:news_app/features/home/components/categories_list.dart';
 import 'package:news_app/features/home/models/news_article_model.dart';
 
 class HomeController extends ChangeNotifier {

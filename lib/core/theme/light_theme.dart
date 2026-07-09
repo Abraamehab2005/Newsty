@@ -58,7 +58,7 @@ ThemeData lightTheme = ThemeData(
     style: ElevatedButton.styleFrom(
       foregroundColor: Color(0xFFFFFCFC),
       backgroundColor: Color(0xFFC53030),
-      textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+      textStyle: TextStyle(fontSize: AppSize.sp16, fontWeight: FontWeight.w400),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       minimumSize: Size.fromHeight(AppSize.h52)
     ),

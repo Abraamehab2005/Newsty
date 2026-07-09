@@ -1,12 +1,13 @@
-import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
 import 'package:news_app/features/auth/register_screen.dart';
 import 'package:news_app/features/main/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+ const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -74,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding:  EdgeInsets.all(AppSize.pw16),
           child: Form(
             key: _form,
             child: Column(
@@ -82,9 +83,9 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: Image.asset("assets/images/splash.png", height: 45),
+                  child: Image.asset("assets/images/splash.png", height: AppSize.h45),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSize.ph24),
                 Text(
                   'Welcome to Newts',
                   style: TextStyle(
@@ -93,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSize.ph24),
                 CustomTextFormField(
                   controller: emailController,
                   hintText: "ebraam@gmail.com",
@@ -112,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   },
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSize.ph24),
                 CustomTextFormField(
                   controller: passwordController,
                   hintText: "*************",
@@ -127,16 +128,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 if (errorMessage != null)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    padding:  EdgeInsets.symmetric(vertical: AppSize.ph8),
                     child: Text(
                       errorMessage!,
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSize.ph24),
                 SizedBox(
                   width: double.infinity,
-                  height: 48,
+                  height: AppSize.h48,
                   child: ElevatedButton(
                     onPressed: () {
                       if (_form.currentState?.validate() ?? false) {
@@ -148,15 +149,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         : Text('Sign In'),
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSize.ph24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Don’t have an account ?",
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: AppSize.sp14),
                     ),
-                    SizedBox(width: 8),
+                    SizedBox(width: AppSize.pw8),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -172,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         "Sign Up",
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
-                          fontSize: 16,
+                          fontSize: AppSize.sp16,
                         ),
                       ),
                     ),

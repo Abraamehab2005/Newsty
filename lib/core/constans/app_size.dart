@@ -13,17 +13,20 @@ class AppSize {
   static final double sp40 = 40.sp;
 
   /// height
+  static final double h2 = 2.h;
   static final double h4 = 4.h;
   static final double h6 = 6.h;
   static final double h8 = 8.h;
   static final double h16 = 16.h;
   static final double h24 = 24.h;
+  static final double h35 = 35.h;
   static final double h40 = 40.h;
   static final double h42 = 42.h;
   static final double h45 = 45.h;
   static final double h48 = 48.h;
   static final double h52 = 52.h;
   static final double h56 = 56.h;
+  static final double h80 = 80.h;
   static final double h140 = 140.h;
   static final double h200 = 200.h;
   static final double h240 = 240.h;
@@ -41,7 +44,6 @@ class AppSize {
   static final double w240 = 240.w;
   static final double w350 = 350.w;
 
-
   /// padding height
   static final double ph4 = 4.h;
   static final double ph8 = 8.h;
@@ -51,6 +53,7 @@ class AppSize {
   static final double ph20 = 20.h;
   static final double ph24 = 24.h;
   static final double ph30 = 30.h;
+  static final double ph35 = 35.h;
   static final double ph44 = 44.h;
   static final double ph50 = 50.h;
   static final double ph60 = 60.h;
@@ -67,6 +70,7 @@ class AppSize {
   static final double pw18 = 18.w;
   static final double pw80 = 80.w;
   static final double pw240 = 240.w;
+
   /// radius
   static final double r4 = 4.r;
   static final double r8 = 8.r;

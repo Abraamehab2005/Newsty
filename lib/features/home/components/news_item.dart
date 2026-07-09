@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/extentions/date_time_extenion.dart';
 import 'package:news_app/core/widgets/custom_cached_network_image.dart';
 import 'package:news_app/core/widgets/custom_svg_picture.dart';
@@ -12,14 +13,14 @@ class NewsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+      padding:  EdgeInsets.symmetric(horizontal: AppSize.pw16, vertical: AppSize.ph8),
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(AppSize.r8),
             child: CustomCachedNetworkImage(imagePath: model.urlToImage ?? ""),
           ),
-          SizedBox(width: 8),
+          SizedBox(width:AppSize.pw8),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,7 +29,7 @@ class NewsItem extends StatelessWidget {
                 Text(
                   model.title.toString(),
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: AppSize.sp16,
                     fontWeight: FontWeight.w400,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -37,10 +38,10 @@ class NewsItem extends StatelessWidget {
                 Row(
                   children: [
                     CircleAvatar(
-                      radius: 10,
+                      radius:AppSize.r10,
                       backgroundImage: NetworkImage(model.urlToImage ?? ""),
                     ),
-                    SizedBox(width: 6),
+                    SizedBox(width: AppSize.pw8),
                     Expanded(
                       child: Row(
                         children: [
@@ -50,18 +51,18 @@ class NewsItem extends StatelessWidget {
                               min((model.author ?? "").length, 10),
                             ),
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: AppSize.sp12,
                               fontWeight: FontWeight.w400,
                               color: Color(0xFF141414),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          SizedBox(width: 8),
+                          SizedBox(width: AppSize.pw8),
                           Expanded(
                             child: Text(
                               model.publishedAt.formatDateTime(),
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize:AppSize.sp12,
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xFF141414),
                               ),

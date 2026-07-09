@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/features/home/components/news_item.dart';
 import 'package:news_app/features/home/home_controller.dart';
@@ -17,7 +18,7 @@ class CategoriesScreen extends StatelessWidget {
         title: Text(
           "Categories",
           style: TextStyle(
-            fontSize: 16,
+            fontSize: AppSize.sp16,
             fontWeight: FontWeight.w700,
             color: Color(0xFF141414),
           ),
@@ -29,15 +30,15 @@ class CategoriesScreen extends StatelessWidget {
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      top: 16,
-                      bottom: 16,
+                    padding:  EdgeInsets.only(
+                      left: AppSize.pw16,
+                      top: AppSize.ph16,
+                      bottom: AppSize.ph16,
                     ),
                     child: SizedBox(
-                      height: 35,
+                      height: AppSize.ph35,
                       child: ListView.separated(
-                        padding: EdgeInsets.only(right: 16),
+                        padding: EdgeInsets.only(right: AppSize.pw16),
                         scrollDirection: Axis.horizontal,
                         itemCount: categories.length,
                         itemBuilder: (BuildContext context, int index) {
@@ -62,9 +63,9 @@ class CategoriesScreen extends StatelessWidget {
                                     ),
                                   ),
                                   if (isSelected) ...[
-                                    SizedBox(height: 6),
+                                    SizedBox(height: AppSize.ph6),
                                     Container(
-                                      height: 2,
+                                      height: AppSize.h2,
                                       color: LightColors.primaryColor,
                                     ),
                                   ],
@@ -74,7 +75,7 @@ class CategoriesScreen extends StatelessWidget {
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(width: 12);
+                          return SizedBox(width: AppSize.pw12);
                         },
                       ),
                     ),
