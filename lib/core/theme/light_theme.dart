@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/theme/light_color.dart';
 
 ThemeData lightTheme = ThemeData(
@@ -9,7 +10,7 @@ ThemeData lightTheme = ThemeData(
   primaryColor: LightColors.primaryColor,
   appBarTheme: AppBarTheme(backgroundColor: Color(0xFFFFFFFF),
   titleTextStyle: TextStyle(
-    fontSize: 16,
+    fontSize: AppSize.sp16, 
     fontWeight: FontWeight.w700,
     color: Color(0xFF141414)
   ),
@@ -59,6 +60,7 @@ ThemeData lightTheme = ThemeData(
       backgroundColor: Color(0xFFC53030),
       textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      minimumSize: Size.fromHeight(AppSize.h52)
     ),
   ),
   textButtonTheme: TextButtonThemeData(
@@ -121,7 +123,7 @@ ThemeData lightTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     hintStyle: TextStyle(
       fontWeight: FontWeight.w400,
-      fontSize: 16,
+      fontSize: AppSize.sp16, 
       color: Color(0xFF9E9E9E),
     ),
     filled: true,

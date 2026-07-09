@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
-import 'package:news_app/features/home/home_screen.dart';
 import 'package:news_app/features/auth/login_screen.dart';
 import 'package:news_app/features/onboarding/controller/onboarding_controller.dart';
 import 'package:news_app/features/onboarding/models/onboarding_model.dart';
@@ -47,7 +47,7 @@ class OnboardingScreen extends StatelessWidget {
                               child: Text(
                                 'Skip',
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: AppSize.sp16,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
@@ -57,7 +57,10 @@ class OnboardingScreen extends StatelessWidget {
             ],
           ),
           body: Padding(
-            padding: EdgeInsets.symmetric(vertical: 50, horizontal: 16),
+            padding: EdgeInsets.symmetric(
+              vertical: AppSize.ph30,
+              horizontal: AppSize.pw16,
+            ),
             child: Column(
               children: [
                 Expanded(
@@ -73,22 +76,22 @@ class OnboardingScreen extends StatelessWidget {
                       return Column(
                         children: [
                           Image.asset(model.image),
-                          SizedBox(height: 24),
+                          SizedBox(height: AppSize.ph24),
                           Text(
                             model.title,
                             style: TextStyle(
                               color: Color(0xFF4E4B66),
-                              fontSize: 20,
+                              fontSize: AppSize.sp20,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          SizedBox(height: 12),
+                          SizedBox(height: AppSize.ph12),
                           Text(
                             model.description,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Color(0xFF6E7191),
-                              fontSize: 16,
+                              fontSize: AppSize.sp16,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -114,7 +117,7 @@ class OnboardingScreen extends StatelessWidget {
                         );
                       },
                 ),
-                SizedBox(height: 112),
+                SizedBox(height: AppSize.ph112),
                 Consumer<OnboardingController>(
                   builder:
                       (
@@ -133,12 +136,7 @@ class OnboardingScreen extends StatelessWidget {
                               _onFinish(context);
                             }
                           },
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(
-                              MediaQuery.of(context).size.width,
-                              52,
-                            ),
-                          ),
+
                           child: Text(
                             value.isLastPage ? 'Get Started' : 'Next',
                           ),

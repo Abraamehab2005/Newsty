@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
-import 'package:news_app/features/home/home_screen.dart';
 import 'package:news_app/features/auth/login_screen.dart';
 import 'package:news_app/features/main/main_screen.dart';
 import 'package:news_app/features/onboarding/onboarding_screen.dart';
@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset('assets/images/splash.png', width: 350, height: 200),
+        child: Image.asset('assets/images/splash.png', width: AppSize.w350, fit: BoxFit.fill,),
       ),
     );
   }
