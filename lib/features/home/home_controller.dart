@@ -20,7 +20,7 @@ class HomeController extends ChangeNotifier {
 
   List<NewsArticleModel> newsTopHeadLineList = [];
   List<NewsArticleModel> newsEveryThingList = [];
- final NewsRepository newsRepository;
+  final BaseNewsRepository newsRepository;
 
   getTopHeadLine({String? category}) async {
     try {
@@ -41,7 +41,7 @@ class HomeController extends ChangeNotifier {
 
   getEveryThing() async {
     try {
-      newsEveryThingList =await newsRepository.getEveryThing();
+      newsEveryThingList = await newsRepository.getEveryThing();
       everyThingStatus = RequestStatusEnum.loaded;
       errorMessage = null;
     } catch (e) {
