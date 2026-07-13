@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/core/datasource/remote_data/api_config.dart';
-import 'package:news_app/core/datasource/remote_data/api_service.dart';
 import 'package:news_app/core/enums/request_status_enum.dart';
+import 'package:news_app/core/mixins/safe_notify_mixin.dart';
 import 'package:news_app/features/home/models/news_article_model.dart';
 import 'package:news_app/features/home/repos/news_repository.dart';
 
-class HomeController extends ChangeNotifier {
+
+
+class HomeController extends ChangeNotifier with SafeNotifyMixin{
   HomeController(this.newsRepository) {
     getEveryThing();
     getTopHeadLine();
@@ -36,7 +37,7 @@ class HomeController extends ChangeNotifier {
       newsTopHeadLineStates = RequestStatusEnum.error;
       errorMessage = e.toString();
     }
-    notifyListeners();
+    safeNotify();
   }
 
   getEveryThing() async {
@@ -48,12 +49,14 @@ class HomeController extends ChangeNotifier {
       errorMessage = e.toString();
       everyThingStatus = RequestStatusEnum.error;
     }
-    notifyListeners();
+    safeNotify();
   }
 
   void updateSelectedCategory(String category) {
     selectedCategory = category;
     getTopHeadLine(category: selectedCategory);
-    notifyListeners();
+    safeNotify();
   }
+
+  
 }
