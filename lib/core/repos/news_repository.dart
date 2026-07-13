@@ -7,7 +7,7 @@ abstract class BaseNewsRepository {
     String? selectedCategory = "general",
   });
 
-  Future<List<NewsArticleModel>> getEveryThing();
+  Future<List<NewsArticleModel>> getEveryThing({String? query = "news"});
 }
 
 class NewsRepository extends BaseNewsRepository {
@@ -29,10 +29,10 @@ class NewsRepository extends BaseNewsRepository {
   }
 
   @override
-  Future<List<NewsArticleModel>> getEveryThing() async {
+  Future<List<NewsArticleModel>> getEveryThing({String? query = "news"}) async {
     Map<String, dynamic> result = await apiService.get(
       ApiConfig.everything,
-      params: {"q": "news"},
+      params: {"q": query},
     );
 
     return (result["articles"] as List)

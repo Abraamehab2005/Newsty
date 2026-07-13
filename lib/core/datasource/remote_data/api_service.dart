@@ -7,8 +7,7 @@ abstract class BaseApiService {
   Future<dynamic> get(String endPoint, {Map<String, dynamic>? params});
 }
 
-class ApiService extends BaseApiService{
-  
+class ApiService extends BaseApiService {
   @override
   Future<dynamic> get(String endPoint, {Map<String, dynamic>? params}) async {
     var url = Uri.http(ApiConfig.baseUrl, "v2/$endPoint", {
@@ -16,6 +15,7 @@ class ApiService extends BaseApiService{
       ...?params,
     });
 
+    print(url);
     try {
       final http.Response response = await http.get(url);
       return jsonDecode(response.body) as Map<String, dynamic>;
