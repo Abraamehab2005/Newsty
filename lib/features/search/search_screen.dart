@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/remote_data/api_service.dart';
 import 'package:news_app/core/repos/news_repository.dart';
+import 'package:news_app/features/details/news_details_screen.dart';
 import 'package:news_app/features/search/search_controller.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatelessWidget {
-  SearchScreen({super.key});
+  const SearchScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -19,11 +20,7 @@ class SearchScreen extends StatelessWidget {
           padding: EdgeInsets.all(AppSize.pw16),
           child: Consumer<SearchScreenController>(
             builder:
-                (
-                  BuildContext context,
-                  SearchScreenController controller,
-                  Widget? child,
-                ) {
+                (BuildContext context, SearchScreenController controller, Widget? child) {
                   return Column(
                     children: [
                       TextField(
@@ -49,6 +46,16 @@ class SearchScreen extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ListTile(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return NewsDetailsScreen(model: model);
+                                      },
+                                    ),
+                                  );
+                                },
                                 leading: Icon(
                                   Icons.search,
                                   color: Color(0xFFA0A0A0),
