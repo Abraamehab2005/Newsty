@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
+import 'package:news_app/core/datasource/local_data/user_repository.dart';
+import 'package:news_app/core/models/user_model.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
 import 'package:news_app/features/auth/register_screen.dart';
 import 'package:news_app/features/main/main_screen.dart';
@@ -28,18 +30,13 @@ class _LoginScreenState extends State<LoginScreen> {
       isLoading = true;
     });
     await Future.delayed(Duration(seconds: 3));
-    final savedEmail = PreferencesManager().getString("user_email");
-    final savedPassword = PreferencesManager().getString("user_password");
-    if (savedEmail == null || savedPassword == null) {
+    final String? error = UserRepository().login(
+      emailController.text,
+      passwordController.text,
+    );
+    if (error != null) {
       setState(() {
-        errorMessage = "No Account Please Register First";
-        isLoading = false;
-      });
-      return;
-    }
-    if (savedEmail != emailController.text || savedPassword != passwordController.text) {
-      setState(() {
-        errorMessage = "Incorrect Email or Passsword";
+        errorMessage = error;
         isLoading = false;
       });
       return;

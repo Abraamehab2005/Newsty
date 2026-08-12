@@ -5,10 +5,8 @@ import 'package:news_app/features/home/components/news_item.dart';
 import 'package:news_app/features/home/components/top_headline_shimmer.dart';
 import 'package:news_app/features/home/home_controller.dart';
 import 'package:provider/provider.dart';
-
 class TopHeadline extends StatelessWidget {
   const TopHeadline({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeController>(

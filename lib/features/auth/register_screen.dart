@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
+import 'package:news_app/core/datasource/local_data/user_repository.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
-
 import 'package:news_app/features/main/main_screen.dart';
-
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
-
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
@@ -34,29 +32,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
       isLoading = true;
     });
     await Future.delayed(Duration(seconds: 3));
-    final savedEmail = PreferencesManager().getString("user_email");
-    if (savedEmail != null && savedEmail == emailController.text.trim()) {
+    final String? error = await UserRepository().signUp(
+      email: emailController.text,
+      name: userNameController.text,
+      password: passwordController.text,
+    );
+    if (error != null) {
       setState(() {
-        errorMessage = "User Already Registered";
+        errorMessage = error;
         isLoading = false;
       });
-    } else {
-      await PreferencesManager().setString("username", userNameController.text);
-      await PreferencesManager().setString("user_email", emailController.text);
-      await PreferencesManager().setString("user_password", passwordController.text);
-      await PreferencesManager().setBool("is_logged_in", true);
-      setState(() {
-        isLoading = false;
-      });
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) {
-            return MainScreen();
-          },
-        ),
-      );
+      return;
     }
+    await PreferencesManager().setBool("is_logged_in", true);
+    setState(() {
+      isLoading = false;
+    });
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return MainScreen();
+        },
+      ),
+    );
   }
 
   @override
