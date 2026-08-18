@@ -3,16 +3,15 @@ import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/enums/request_status_enum.dart';
 import 'package:news_app/core/extentions/date_time_extenion.dart';
 import 'package:news_app/core/theme/light_color.dart';
+import 'package:news_app/core/widgets/bookmark_button.dart';
 import 'package:news_app/core/widgets/custom_cached_network_image.dart';
 import 'package:news_app/features/details/news_details_screen.dart';
 import 'package:news_app/features/home/components/trending_news_shimmer.dart';
 import 'package:news_app/features/home/components/view_all_component.dart';
 import 'package:news_app/features/home/home_controller.dart';
 import 'package:provider/provider.dart';
-
 class TrendingNews extends StatelessWidget {
   const TrendingNews({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -103,6 +102,16 @@ class TrendingNews extends StatelessWidget {
                                                       ],
                                                     ),
                                                   ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: AppSize.ph8,
+                                                right: AppSize.pw8,
+                                                child: BookmarkButton(
+                                                  article: model,
+                                                  size: 24,
+                                                  activeColor: Colors.amber,
+                                                  inactiveColor: Colors.white,
                                                 ),
                                               ),
                                               Positioned(
