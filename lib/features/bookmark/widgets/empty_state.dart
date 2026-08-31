@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/features/bookmark/bookmark_controller.dart';
 import 'package:provider/provider.dart';
 
 class EmptyState extends StatelessWidget {
   const EmptyState({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Consumer<BookmarkController>(
@@ -35,7 +33,6 @@ class EmptyState extends StatelessWidget {
                 style: TextStyle(fontSize: AppSize.sp14, color: Colors.grey.shade500),
                 textAlign: TextAlign.center,
               ),
-             
             ],
           ),
         );
