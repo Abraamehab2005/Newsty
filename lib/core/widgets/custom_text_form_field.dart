@@ -31,7 +31,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(widget.title, style: Theme.of(context).textTheme.titleMedium),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         TextFormField(
           controller: widget.controller,
           style: Theme.of(context).textTheme.labelMedium,
@@ -46,8 +46,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       });
                     },
                     icon: _isVisible
-                        ? Icon(Icons.visibility)
-                        : Icon(Icons.visibility_off),
+                        ? const Icon(Icons.visibility)
+                        : const Icon(Icons.visibility_off),
                   )
                 : null,
           ),

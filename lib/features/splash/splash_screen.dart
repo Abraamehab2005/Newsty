@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigateAfterSplash() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     final bool onboardingComplete =
         PreferencesManager().getBool('onboarding_complete') ?? false;
     final bool isLoggedIn =
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) {
-            return OnboardingScreen();
+            return const OnboardingScreen();
           },
         ),
       );
@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) {
-            return LoginScreen();
+            return const LoginScreen();
           },
         ),
       );
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) {
-            return MainScreen(); // HomeScreen
+            return const MainScreen(); // HomeScreen
           },
         ),
       );

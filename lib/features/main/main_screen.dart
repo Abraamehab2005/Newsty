@@ -17,10 +17,10 @@ int _bookmarkCount = 0;
 
 class _MainScreenState extends State<MainScreen> {
   final List<Widget> _screens = [
-    HomeScreen(),
-    SearchScreen(),
-    BookmarkScreen(),
-    ProfileScreen(),
+    const HomeScreen(),
+    const SearchScreen(),
+    const BookmarkScreen(),
+    const ProfileScreen(),
   ];
 
   @override

@@ -12,7 +12,7 @@ class HomeCubit extends Cubit<HomeState> {
     getTopHeadLine();
   }
   final BaseNewsRepository newsRepository;
-  getTopHeadLine({String? category}) async {
+  Future<void> getTopHeadLine({String? category}) async {
     try {
 
       emit(state.copyWith(
@@ -34,7 +34,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  getEveryThing() async {
+  Future<void> getEveryThing() async {
     try {
       final articles = await newsRepository.getEveryThing();
       emit(state.copyWith(

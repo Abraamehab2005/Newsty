@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/user_repository.dart';
 import 'package:news_app/core/models/user_model.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
+
+import '../../../core/constans/app_size.dart';
 
 class ProfileInfoBottomSheet extends StatefulWidget {
   const ProfileInfoBottomSheet({super.key});
@@ -12,27 +13,29 @@ class ProfileInfoBottomSheet extends StatefulWidget {
 }
 
 class _ProfileInfoBottomSheetState extends State<ProfileInfoBottomSheet> {
-  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
 
   final TextEditingController emailController = TextEditingController();
+
   final GlobalKey<FormState> _key = GlobalKey();
 
   @override
   void initState() {
     super.initState();
-    _loadUserDate();
+
+    _loadUserData();
   }
 
-  void _loadUserDate() {
+  void _loadUserData() {
     final UserModel user = UserRepository().getUser();
-    userNameController.text = user.name ?? "";
     emailController.text = user.email ?? "";
+    usernameController.text = user.name ?? "";
   }
 
-  void _saveUserDate() async {
+  void _saveUserData() async {
     if (_key.currentState?.validate() ?? false) {
       await UserRepository().updateUser(
-        name: userNameController.text,
+        name: usernameController.text,
         email: emailController.text,
       );
       Navigator.pop(context);
@@ -42,7 +45,7 @@ class _ProfileInfoBottomSheetState extends State<ProfileInfoBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.75,
+      height: MediaQuery.of(context).size.height * 0.50,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -51,73 +54,77 @@ class _ProfileInfoBottomSheetState extends State<ProfileInfoBottomSheet> {
           topRight: Radius.circular(AppSize.r16),
         ),
       ),
+
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _key,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  height: AppSize.h4,
-                  width: AppSize.w42,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF363636),
-                    borderRadius: BorderRadius.circular(100),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _key,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: AppSize.w42,
+                    height: AppSize.h4,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF363636),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: AppSize.ph16),
-              Text(
-                "Profile Info",
-                style: TextStyle(
-                  color: Color(0xFF141414),
-                  fontSize: AppSize.sp16,
-                  fontWeight: FontWeight.w400,
+
+                SizedBox(height: AppSize.ph16),
+                Text(
+                  "Profile Info",
+                  style: TextStyle(fontSize: AppSize.sp16, fontWeight: FontWeight.w400),
                 ),
-              ),
-              SizedBox(height: AppSize.ph16),
-              CustomTextFormField(
-                controller: userNameController,
-                hintText: "Ebraam Ehab",
-                title: "User Name",
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter User Name";
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: AppSize.ph16),
-              CustomTextFormField(
-                controller: emailController,
-                hintText: "ebraam@gmail.com",
-                title: "Email",
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter Email";
-                  }
-                  final emailRegex = RegExp(
-                    r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-                  );
-                  if (!emailRegex.hasMatch(value)) {
-                    return "Enter a valid email";
-                  } else {
+                SizedBox(height: AppSize.ph16),
+
+                CustomTextFormField(
+                  controller: usernameController,
+                  hintText: 'Ahmed Ibrahim',
+                  title: 'User Name',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter User Name";
+                    }
+
                     return null;
-                  }
-                },
-              ),
-              Spacer(),
-              ElevatedButton(
-                onPressed: () {
-                  _saveUserDate();
-                },
-                child: Text("Save"),
-              ),
-              SizedBox(height: AppSize.ph16),
-            ],
+                  },
+                ),
+                SizedBox(height: AppSize.ph16),
+                CustomTextFormField(
+                  controller: emailController,
+                  hintText: 'usama@gmail.com',
+                  title: 'Email',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter Email";
+                    }
+                    RegExp emailRegExp = RegExp(
+                      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                    );
+
+                    if (!emailRegExp.hasMatch(value)) {
+                      return 'Please Enter Valid Email';
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+
+                SizedBox(height: AppSize.ph40),
+                ElevatedButton(
+                  onPressed: () {
+                    _saveUserData();
+                  },
+                  child: Text("Save"),
+                ),
+                SizedBox(height: AppSize.ph16),
+              ],
+            ),
           ),
         ),
       ),

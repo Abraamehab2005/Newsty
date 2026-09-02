@@ -5,17 +5,17 @@ import 'package:news_app/core/theme/light_color.dart';
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
-  colorScheme: ColorScheme.light(),
-  scaffoldBackgroundColor: Color(0xFFf5f5f5),
+  colorScheme: const ColorScheme.light(),
+  scaffoldBackgroundColor: const Color(0xFFf5f5f5),
   primaryColor: LightColors.primaryColor,
-  appBarTheme: AppBarTheme(backgroundColor: Color(0xFFFFFFFF),
+  appBarTheme: AppBarTheme(backgroundColor: const Color(0xFFFFFFFF),
   titleTextStyle: TextStyle(
     fontSize: AppSize.sp16, 
     fontWeight: FontWeight.w700,
-    color: Color(0xFF141414)
+    color: const Color(0xFF141414)
   ),
   ),
-  progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.white),
+  progressIndicatorTheme: const ProgressIndicatorThemeData(color: Colors.white),
   // appBarTheme: AppBarTheme(
   //   backgroundColor: Color(0xFFF6F7F9),
   //   titleTextStyle: TextStyle(
@@ -56,15 +56,15 @@ ThemeData lightTheme = ThemeData(
   // ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      foregroundColor: Color(0xFFFFFCFC),
-      backgroundColor: Color(0xFFC53030),
+      foregroundColor: const Color(0xFFFFFCFC),
+      backgroundColor: const Color(0xFFC53030),
       textStyle: TextStyle(fontSize: AppSize.sp16, fontWeight: FontWeight.w400),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       minimumSize: Size.fromHeight(AppSize.h52)
     ),
   ),
   textButtonTheme: TextButtonThemeData(
-    style: TextButton.styleFrom(foregroundColor: Color(0xFFC53030)),
+    style: TextButton.styleFrom(foregroundColor: const Color(0xFFC53030)),
   ),
   // floatingActionButtonTheme: FloatingActionButtonThemeData(
   //   backgroundColor: Color(0xFF15b86c),
@@ -124,24 +124,24 @@ ThemeData lightTheme = ThemeData(
     hintStyle: TextStyle(
       fontWeight: FontWeight.w400,
       fontSize: AppSize.sp16, 
-      color: Color(0xFF9E9E9E),
+      color: const Color(0xFF9E9E9E),
     ),
     filled: true,
-    fillColor: Color(0xFFFFFFFF),
-    focusColor: Color(0xFFD1DAD6),
-    errorBorder: OutlineInputBorder(
+    fillColor: const Color(0xFFFFFFFF),
+    focusColor: const Color(0xFFD1DAD6),
+    errorBorder: const OutlineInputBorder(
       borderRadius: BorderRadius.zero,
       borderSide: BorderSide(color: Colors.red, width: 0.5),
     ),
-    focusedBorder: OutlineInputBorder(
+    focusedBorder: const OutlineInputBorder(
       borderRadius: BorderRadius.zero,
       borderSide: BorderSide(color: Color(0xFFD1DAD6), width: 0.5),
     ),
-    enabledBorder: OutlineInputBorder(
+    enabledBorder: const OutlineInputBorder(
       borderRadius: BorderRadius.zero,
       borderSide: BorderSide(color: Color(0xFFD1DAD6), width: 0.5),
     ),
-    border: OutlineInputBorder(
+    border: const OutlineInputBorder(
       borderRadius: BorderRadius.zero,
       borderSide: BorderSide(color: Color(0xFFD1DAD6), width: 0.5),
     ),
@@ -171,7 +171,7 @@ ThemeData lightTheme = ThemeData(
   //   selectionHandleColor: Colors.black,
   //   selectionColor: Colors.grey,
   // ),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: LightColors.backgroundColor,
     type: BottomNavigationBarType.fixed,
     unselectedItemColor: Color(0xFF363636),

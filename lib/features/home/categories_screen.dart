@@ -21,7 +21,7 @@ class CategoriesScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: AppSize.sp16,
             fontWeight: FontWeight.w700,
-            color: Color(0xFF141414),
+            color: const Color(0xFF141414),
           ),
         ),
       ),
@@ -57,7 +57,7 @@ class CategoriesScreen extends StatelessWidget {
                                   Text(
                                     categories[index][0].toUpperCase() +
                                         categories[index].substring(1),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color(0xFF363636),
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400,

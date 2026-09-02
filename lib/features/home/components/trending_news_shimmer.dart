@@ -7,11 +7,11 @@ class TrendingNewsShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.only(left: 16),
+      padding: const EdgeInsets.only(left: 16),
       itemCount: 6,
       scrollDirection: Axis.horizontal,
       separatorBuilder: (BuildContext context, int index) =>
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
       itemBuilder: (BuildContext context, int index) {
         return Shimmer.fromColors(
           baseColor: Colors.grey.shade300,

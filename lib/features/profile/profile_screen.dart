@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
@@ -9,7 +10,7 @@ import 'package:news_app/core/theme/light_color.dart';
 import 'package:news_app/core/widgets/custom_svg_picture.dart';
 import 'package:news_app/features/auth/login_screen.dart';
 import 'package:news_app/features/profile/bottom_sheet/profile_info_bottom_sheet.dart';
-import 'package:news_app/features/profile/profile_controller.dart';
+import 'package:news_app/features/profile/cubit/profile_cubit.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -17,16 +18,16 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ProfileController>(
+    return BlocProvider<ProfileCubit>(
       create: (BuildContext context) {
-        return ProfileController()..getUserDate();
+        return ProfileCubit()..getUserDate();
       },
       child: Scaffold(
-        appBar: AppBar(centerTitle: true, title: Text("Profile")),
+        appBar: AppBar(centerTitle: true, title: const Text("Profile")),
         body: Padding(
           padding: EdgeInsets.symmetric(vertical: AppSize.h24, horizontal: AppSize.w16),
-          child: Consumer<ProfileController>(
-            builder: (BuildContext context, ProfileController controller, Widget? child) {
+          child: BlocBuilder<ProfileCubit , ProfileState>(
+            builder: (BuildContext context, state) {
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,9 +37,9 @@ class ProfileScreen extends StatelessWidget {
                         alignment: Alignment.bottomRight,
                         children: [
                           CircleAvatar(
-                            backgroundImage: controller.selectedImage == null
-                                ? AssetImage("assets/images/person.png")
-                                : FileImage(File(controller.selectedImage!.path)),
+                            backgroundImage: state.selectedImage == null
+                                ? const AssetImage("assets/images/person.png")
+                                : FileImage(File(state.selectedImage!.path)),
                             radius: AppSize.r60,
                             backgroundColor: Colors.transparent,
                           ),
@@ -53,7 +54,7 @@ class ProfileScreen extends StatelessWidget {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(AppSize.r20),
                               ),
-                              child: Icon(Icons.camera_alt),
+                              child: const Icon(Icons.camera_alt),
                             ),
                           ),
                         ],
@@ -62,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
                     SizedBox(height: AppSize.ph8),
                     Center(
                       child: Text(
-                       controller.userName ?? "",
+                       state.userName ?? "",
                         style: TextStyle(color: Colors.black, fontSize: AppSize.sp12),
                       ),
                     ),
@@ -73,19 +74,19 @@ class ProfileScreen extends StatelessWidget {
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (BuildContext context) {
-                          return ProfileInfoBottomSheet();
+                          return const ProfileInfoBottomSheet();
                         },
                       ).then((value) {
-                        controller.getUserDate();
+                        context.read<ProfileCubit>().getUserDate();
                       });
                     }),
                     _buildProfileItem("Language", "assets/images/language.svg", () {}),
-                    _buildProfileItem(controller.countryName ??  "Country", "assets/images/country.svg", () {
+                    _buildProfileItem(state.countryName ??  "Country", "assets/images/country.svg", () {
                       showCountryPicker(
                         context: context,
                         showPhoneCode: true,
                         onSelect: (Country country) {
-                          controller.saveCountry(country);
+                          context.read<ProfileCubit>().saveCountry(country);
                         },
                       );
                     }),
@@ -108,7 +109,7 @@ class ProfileScreen extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (BuildContext context) {
-                              return LoginScreen();
+                              return const LoginScreen();
                             },
                           ),
                         );
@@ -126,7 +127,7 @@ class ProfileScreen extends StatelessWidget {
 }
 
 void showImageSourceDialog(BuildContext context) {
-  final controller = context.read<ProfileController>();
+  final controller = context.read<ProfileCubit>();
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -144,9 +145,9 @@ void showImageSourceDialog(BuildContext context) {
             padding: EdgeInsets.all(AppSize.pw16),
             child: Row(
               children: [
-                Icon(Icons.camera_alt),
+                const Icon(Icons.camera_alt),
                 SizedBox(width: AppSize.pw8),
-                Text("Camera"),
+                const Text("Camera"),
               ],
             ),
           ),
@@ -158,9 +159,9 @@ void showImageSourceDialog(BuildContext context) {
             padding: EdgeInsets.all(AppSize.pw16),
             child: Row(
               children: [
-                Icon(Icons.photo_library),
+                const Icon(Icons.photo_library),
                 SizedBox(width: AppSize.pw8),
-                Text("Gellery"),
+                const Text("Gellery"),
               ],
             ),
           ),

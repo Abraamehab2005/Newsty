@@ -13,7 +13,7 @@ class PreferencesManager {
   PreferencesManager._internal();
 
   late final SharedPreferences _preferences;
-  init() async {
+  Future<void> init() async {
     _preferences = await SharedPreferences.getInstance();
   }
 
@@ -44,7 +44,7 @@ class PreferencesManager {
     return _preferences.getString(key);
   }
 
-  remove(String key) async {
+  Future<void> remove(String key) async {
     await _preferences.remove(key);
   }
 
@@ -64,7 +64,7 @@ class PreferencesManager {
     return _preferences.getStringList(key);
   }
 
-  clear() async{
+  Future<void> clear() async{
     await _preferences.clear();
   }
 }

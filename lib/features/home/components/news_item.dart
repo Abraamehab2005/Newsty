@@ -65,7 +65,7 @@ class NewsItem extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: AppSize.sp12,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0xFF141414),
+                                color: const Color(0xFF141414),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -76,7 +76,7 @@ class NewsItem extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: AppSize.sp12,
                                   fontWeight: FontWeight.w400,
-                                  color: Color(0xFF141414),
+                                  color: const Color(0xFF141414),
                                 ),
                               ),
                             ),

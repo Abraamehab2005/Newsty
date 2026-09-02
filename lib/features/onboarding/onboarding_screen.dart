@@ -1,58 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
 import 'package:news_app/features/auth/login_screen.dart';
-import 'package:news_app/features/onboarding/controller/onboarding_controller.dart';
+import 'package:news_app/features/onboarding/cubit/onboarding_cubit.dart';
 import 'package:news_app/features/onboarding/models/onboarding_model.dart';
-import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
-  _onFinish(BuildContext context) async {
+  Future<void> _onFinish(BuildContext context) async {
     await PreferencesManager().setBool("onboarding_complete", true);
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return LoginScreen();
+          return const LoginScreen();
         },
       ),
     );
   }
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<OnboardingController>(
-      create: (context) => OnboardingController(),
-      builder: (context, child) {
-        final controller = context.read<OnboardingController>();
+    return BlocProvider(
+      create: (context) => OnboardingCubit(),
+      child: Builder(builder: (BuildContext context) {
+        final controller = context.read<OnboardingCubit>();
         return Scaffold(
           appBar: AppBar(
             backgroundColor: const Color(0xFFf5f5f5),
             actions: [
-              Consumer<OnboardingController>(
+              BlocBuilder<OnboardingCubit , OnboardingState>(
                 builder:
                     (
-                      BuildContext context,
-                      OnboardingController value,
-                      Widget? child,
+                    BuildContext context,
+                    state
                     ) {
-                      return value.isLastPage
-                          ? SizedBox()
-                          : TextButton(
-                              onPressed: () {
-                                _onFinish(context);
-                              },
-                              child: Text(
-                                'Skip',
-                                style: TextStyle(
-                                  fontSize: AppSize.sp16,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            );
+                  return state.isLastPage
+                      ? const SizedBox()
+                      : TextButton(
+                    onPressed: () {
+                      _onFinish(context);
                     },
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                        fontSize: AppSize.sp16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -67,12 +65,12 @@ class OnboardingScreen extends StatelessWidget {
                   child: PageView.builder(
                     controller: controller.pageController,
                     onPageChanged: (int index) {
-                      context.read<OnboardingController>().onPageChanged(index);
+                      context.read<OnboardingCubit>().onPageChanged(index);
                     },
                     itemCount: OnboardingModel.onboardingList.length,
                     itemBuilder: (BuildContext context, int index) {
                       final OnboardingModel model =
-                          OnboardingModel.onboardingList[index];
+                      OnboardingModel.onboardingList[index];
                       return Column(
                         children: [
                           Image.asset(model.image),
@@ -80,7 +78,7 @@ class OnboardingScreen extends StatelessWidget {
                           Text(
                             model.title,
                             style: TextStyle(
-                              color: Color(0xFF4E4B66),
+                              color: const Color(0xFF4E4B66),
                               fontSize: AppSize.sp20,
                               fontWeight: FontWeight.w700,
                             ),
@@ -90,64 +88,62 @@ class OnboardingScreen extends StatelessWidget {
                             model.description,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Color(0xFF6E7191),
+                              color: const Color(0xFF6E7191),
                               fontSize: AppSize.sp16,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                         ],
                       );
                     },
                   ),
                 ),
-                Consumer<OnboardingController>(
+                BlocBuilder<OnboardingCubit , OnboardingState>(
                   builder:
                       (
-                        BuildContext context,
-                        OnboardingController value,
-                        Widget? child,
+                      BuildContext context,
+                       state
                       ) {
-                        return SmoothPageIndicator(
-                          controller: value.pageController, // PageController
-                          count: 3,
-                          effect: SwapEffect(
-                            activeDotColor: Color(0xFFC53030),
-                          ), // your preferred effect
-                        );
-                      },
+                    return SmoothPageIndicator(
+                      controller: context.read<OnboardingCubit>().pageController, // PageController
+                      count: 3,
+                      effect: const SwapEffect(
+                        activeDotColor: Color(0xFFC53030),
+                      ), // your preferred effect
+                    );
+                  },
                 ),
                 SizedBox(height: AppSize.ph112),
-                Consumer<OnboardingController>(
+                BlocBuilder<OnboardingCubit , OnboardingState>(
                   builder:
                       (
-                        BuildContext context,
-                        OnboardingController value,
-                        Widget? child,
+                      BuildContext context,
+                       state
                       ) {
-                        return ElevatedButton(
-                          onPressed: () {
-                            if (!value.isLastPage) {
-                              controller.pageController.nextPage(
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                              );
-                            } else {
-                              _onFinish(context);
-                            }
-                          },
-
-                          child: Text(
-                            value.isLastPage ? 'Get Started' : 'Next',
-                          ),
-                        );
+                    return ElevatedButton(
+                      onPressed: () {
+                        if (!state.isLastPage) {
+                          controller.pageController.nextPage(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        } else {
+                          _onFinish(context);
+                        }
                       },
+
+                      child: Text(
+                        state.isLastPage ? 'Get Started' : 'Next',
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
           ),
         );
-      },
+      },),
     );
   }
 }

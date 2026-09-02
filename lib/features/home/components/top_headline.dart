@@ -15,7 +15,7 @@ class TopHeadline extends StatelessWidget {
           (BuildContext context,state) {
             switch (state.newsTopHeadLineStates) {
               case RequestStatusEnum.loading:
-                return TopHeadlineShimmer();
+                return const TopHeadlineShimmer();
               case RequestStatusEnum.error:
                 return SliverToBoxAdapter(
                   child: Center(child: Text(state.errorMessage!)),

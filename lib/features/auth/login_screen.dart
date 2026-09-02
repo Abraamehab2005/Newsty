@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
 import 'package:news_app/core/datasource/local_data/user_repository.dart';
-import 'package:news_app/core/models/user_model.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
 import 'package:news_app/features/auth/register_screen.dart';
 import 'package:news_app/features/main/main_screen.dart';
@@ -29,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
       errorMessage = null;
       isLoading = true;
     });
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     final String? error = UserRepository().login(
       emailController.text,
       passwordController.text,
@@ -47,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       context,
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return MainScreen();
+          return const MainScreen();
         },
       ),
     );
@@ -64,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/background_image.png"),
               fit: BoxFit.fill,
@@ -86,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: AppSize.ph24),
-                      Text(
+                      const Text(
                         'Welcome to Newts',
                         style: TextStyle(
                           color: Color(0xFF363636),
@@ -129,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (errorMessage != null)
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: AppSize.ph8),
-                          child: Text(errorMessage!, style: TextStyle(color: Colors.red)),
+                          child: Text(errorMessage!, style: const TextStyle(color: Colors.red)),
                         ),
                       SizedBox(height: AppSize.ph24),
                       SizedBox(
@@ -142,8 +141,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           },
                           child: isLoading
-                              ? CircularProgressIndicator()
-                              : Text('Sign In'),
+                              ? const CircularProgressIndicator()
+                              : const Text('Sign In'),
                         ),
                       ),
                       SizedBox(height: AppSize.ph24),
@@ -161,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (BuildContext context) {
-                                    return RegisterScreen();
+                                    return const RegisterScreen();
                                   },
                                 ),
                               );

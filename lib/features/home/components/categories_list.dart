@@ -20,7 +20,7 @@ class CategoriesList extends StatelessWidget {
                 children: [
                   ViewAllComponent(
                     title: 'Categories',
-                    titleColor: Color(0xFF141414),
+                    titleColor: const Color(0xFF141414),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -28,7 +28,7 @@ class CategoriesList extends StatelessWidget {
                           builder: (BuildContext _) {
                             return BlocProvider.value(
                               value: context.read<HomeCubit>(),
-                              child: CategoriesScreen(),
+                              child: const CategoriesScreen(),
                             );
                           },
                         ),
@@ -63,7 +63,7 @@ class CategoriesList extends StatelessWidget {
                                     categories[index][0].toUpperCase() +
                                         categories[index].substring(1),
                                     style: TextStyle(
-                                      color: Color(0xFF363636),
+                                      color: const Color(0xFF363636),
                                       fontSize: AppSize.sp16,
                                       fontWeight: FontWeight.w400,
                                     ),

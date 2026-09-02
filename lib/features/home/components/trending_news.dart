@@ -50,7 +50,7 @@ class TrendingNews extends StatelessWidget {
                           ) {
                             switch (state.everyThingStatus) {
                               case RequestStatusEnum.loading:
-                                return TrendingNewsShimmer();
+                                return const TrendingNewsShimmer();
                               case RequestStatusEnum.error:
                                 return Center(child: Text(state.errorMessage!));
                               case RequestStatusEnum.loaded:
@@ -124,7 +124,7 @@ class TrendingNews extends StatelessWidget {
                                                     Text(
                                                       maxLines: 2,
                                                       model.title.toString(),
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         fontSize: 14,
                                                         color: Color(0xFFFFFCFC),
                                                         fontWeight: FontWeight.w700,
@@ -152,7 +152,7 @@ class TrendingNews extends StatelessWidget {
                                                                   maxLines: 1,
                                                                   model.author ?? "",
                                                                   style: TextStyle(
-                                                                    color: Color(
+                                                                    color: const Color(
                                                                       0xFFFFFCFC,
                                                                     ),
                                                                     fontSize:
@@ -169,7 +169,7 @@ class TrendingNews extends StatelessWidget {
                                                           model.publishedAt
                                                               .formatDateTime(),
                                                           style: TextStyle(
-                                                            color: Color(0xFFFFFCFC),
+                                                            color: const Color(0xFFFFFCFC),
                                                             fontSize: AppSize.sp14,
                                                             fontWeight: FontWeight.w400,
                                                           ),

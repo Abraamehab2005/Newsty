@@ -19,13 +19,13 @@ class NewsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 832),
+      designSize: const Size(375, 832),
       minTextAdapt: true,
       builder: (ctx, _) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: lightTheme,
-          home: SplashScreen(),
+          home: const SplashScreen(),
         );
       },
     );

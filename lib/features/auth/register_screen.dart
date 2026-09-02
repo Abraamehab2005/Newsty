@@ -31,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       errorMessage = null;
       isLoading = true;
     });
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     final String? error = await UserRepository().signUp(
       email: emailController.text,
       name: userNameController.text,
@@ -52,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       context,
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return MainScreen();
+          return const MainScreen();
         },
       ),
     );
@@ -65,7 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/background_image.png"),
               fit: BoxFit.fill,
@@ -91,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Text(
                         'Welcome to Newts',
                         style: TextStyle(
-                          color: Color(0xFF363636),
+                          color: const Color(0xFF363636),
                           fontSize: AppSize.sp20,
                           fontWeight: FontWeight.w700,
                         ),
@@ -157,7 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (errorMessage != null)
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: AppSize.ph8),
-                          child: Text(errorMessage!, style: TextStyle(color: Colors.red)),
+                          child: Text(errorMessage!, style: const TextStyle(color: Colors.red)),
                         ),
                       SizedBox(height: AppSize.ph24),
                       SizedBox(
@@ -170,8 +170,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }
                           },
                           child: isLoading
-                              ? CircularProgressIndicator()
-                              : Text('Sign Up'),
+                              ? const CircularProgressIndicator()
+                              : const Text('Sign Up'),
                         ),
                       ),
                       SizedBox(height: AppSize.ph24),

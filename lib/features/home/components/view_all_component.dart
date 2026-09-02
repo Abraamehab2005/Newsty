@@ -16,7 +16,7 @@ class ViewAllComponent extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: titleColor ?? Color(0xFFFFFCFC),
+              color: titleColor ?? const Color(0xFFFFFCFC),
               fontSize: AppSize.sp16,
               fontWeight: FontWeight.w700,
             ),
@@ -26,11 +26,11 @@ class ViewAllComponent extends StatelessWidget {
             child: Text(
               "View all",
               style: TextStyle(
-                color: titleColor ?? Color(0xFFFFFCFC),
+                color: titleColor ?? const Color(0xFFFFFCFC),
                 fontSize: AppSize.sp14,
                 fontWeight: FontWeight.w400,
                 decoration: TextDecoration.underline,
-                decorationColor: titleColor ?? Color(0xFFFFFCFC),
+                decorationColor: titleColor ?? const Color(0xFFFFFCFC),
               ),
             ),
           ),
