@@ -14,6 +14,7 @@ class TopHeadline extends StatelessWidget {
       builder:
           (BuildContext context,state) {
             switch (state.newsTopHeadLineStates) {
+              case RequestStatusEnum.initial:
               case RequestStatusEnum.loading:
                 return const TopHeadlineShimmer();
               case RequestStatusEnum.error:

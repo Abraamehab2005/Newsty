@@ -49,6 +49,7 @@ class TrendingNews extends StatelessWidget {
                           state,
                           ) {
                             switch (state.everyThingStatus) {
+                              case RequestStatusEnum.initial:
                               case RequestStatusEnum.loading:
                                 return const TrendingNewsShimmer();
                               case RequestStatusEnum.error:

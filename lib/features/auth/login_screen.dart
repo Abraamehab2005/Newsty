@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
 import 'package:news_app/core/datasource/local_data/user_repository.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
 import 'package:news_app/features/auth/register_screen.dart';
+import 'package:news_app/features/auth/repo/auth_repository.dart';
 import 'package:news_app/features/main/main_screen.dart';
+
+import '../../core/datasource/remote_data/api_service.dart';
+import 'cubit/auth_cubit.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,7 +19,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
 
@@ -23,6 +28,15 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isVisible = false;
   bool isLoading = false;
   String? errorMessage;
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+
   void login() async {
     setState(() {
       errorMessage = null;
@@ -30,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     await Future.delayed(const Duration(seconds: 3));
     final String? error = UserRepository().login(
-      emailController.text,
+      usernameController.text,
       passwordController.text,
     );
     if (error != null) {
@@ -58,7 +72,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocProvider(
+  create: (context) => AuthCubit(AuthRepository(ApiService())),
+  child: Scaffold(
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -69,7 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
               fit: BoxFit.fill,
             ),
           ),
-          child: Padding(
+          child: BlocBuilder<AuthCubit, AuthState>(
+    builder: (context, state) {
+    return Padding(
             padding: EdgeInsets.all(AppSize.pw16),
             child: Form(
               key: _form,
@@ -95,21 +113,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: AppSize.ph24),
                       CustomTextFormField(
-                        controller: emailController,
+                        controller: usernameController,
                         hintText: "ebraam@gmail.com",
                         title: "Email",
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Email is required";
                           }
-                          final emailRegex = RegExp(
-                            r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-                          );
-                          if (!emailRegex.hasMatch(value)) {
-                            return "Enter a valid email address";
-                          } else {
-                            return null;
-                          }
+                          // final emailRegex = RegExp(
+                          //   r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                          // );
+                          // if (!emailRegex.hasMatch(value)) {
+                          //   return "Enter a valid email address";
+                          // } else {
+                          //   return null;
+                          // }
                         },
                       ),
                       SizedBox(height: AppSize.ph24),
@@ -137,7 +155,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_form.currentState?.validate() ?? false) {
-                              login();
+                              //login();
+                              context.read<AuthCubit>().login(username: usernameController.text, password: passwordController.text);
                             }
                           },
                           child: isLoading
@@ -180,9 +199,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-          ),
+          );
+  },
+),
         ),
       ),
-    );
+    ),
+);
   }
 }

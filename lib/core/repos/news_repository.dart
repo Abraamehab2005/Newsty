@@ -21,6 +21,7 @@ class NewsRepository extends BaseNewsRepository {
   }) async {
     Map<String, dynamic> result = await apiService.get(
       ApiConfig.topHeadlines,
+      ApiConfig.newsBaseUrl,
       params: {"country": "us", "category": selectedCategory},
     );
     return (result["articles"] as List)
@@ -32,6 +33,7 @@ class NewsRepository extends BaseNewsRepository {
   Future<List<NewsArticleModel>> getEveryThing({String? query = "news"}) async {
     Map<String, dynamic> result = await apiService.get(
       ApiConfig.everything,
+      ApiConfig.newsBaseUrl,
       params: {"q": query},
     );
 
