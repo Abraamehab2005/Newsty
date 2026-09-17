@@ -17,6 +17,11 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
 }) async{
     emit(state.copyWith(authStatus: RequestStatusEnum.loading , errorMessage: null));
-    await authRepository.login(username: username, password: password);
+   final userModel = await authRepository.login(username: username, password: password);
+    if(userModel != null){
+      emit(state.copyWith(authStatus: RequestStatusEnum.loaded , userModel: userModel));
+    }else{
+      emit(state.copyWith(authStatus: RequestStatusEnum.error , errorMessage: "Something Went Wrong"));
+    }
   }
 }

@@ -38,7 +38,9 @@ class ApiService extends BaseApiService {
     try {
       final http.Response response = await http.post(
         url,
-        headers: headers);
+        headers: headers,
+        body: jsonEncode(body)
+      );
       final responseBody = jsonDecode(response.body) as Map<String, dynamic>;
       if(response.statusCode >= 200 && response.statusCode < 300){
         return responseBody;
