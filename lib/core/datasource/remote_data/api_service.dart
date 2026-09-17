@@ -3,7 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:news_app/core/datasource/remote_data/api_config.dart';
 abstract class BaseApiService {
   Future<dynamic> get(String endPoint, String baseUrl,{Map<String, dynamic>? params});
-  Future<dynamic> post(String endPoint, String baseUrl, {Map<String, dynamic>? body});
+  Future<dynamic> post(String endPoint, String baseUrl,{Map<String, dynamic>? body, String? token});
+  Future<dynamic> getWithToken(String endPoint, String baseUrl,String? token);
+
 }
 
 class ApiService extends BaseApiService {
@@ -24,17 +26,55 @@ class ApiService extends BaseApiService {
   }
 
   @override
-  Future<dynamic> post(String endPoint, String baseUrl, {Map<String, dynamic>? body}) async{
+  Future<dynamic> post(String endPoint, String baseUrl, {Map<String, dynamic>? body , String? token}) async{
     var url = Uri.https(baseUrl, endPoint);
-    print(url);
+    final Map<String , String> headers = {
+      "accept": "application/json",
+      "Content-Type": "application/json",
+    };
+    if(token != null){
+      headers["Authorization"] = "Bearer $token";
+    }
     try {
       final http.Response response = await http.post(
+        url,
+        headers: headers);
+      final responseBody = jsonDecode(response.body) as Map<String, dynamic>;
+      if(response.statusCode >= 200 && response.statusCode < 300){
+        return responseBody;
+      }else{
+        throw Exception( responseBody["message"] ?? "Something Went Wrong");
+      }
+    } catch (e) {
+      throw Exception("Failed To Load Data ");
+    }
+  }
+
+
+  @override
+  Future<dynamic> getWithToken(String endPoint, String baseUrl, String? token) async{
+    var url = Uri.https(baseUrl, endPoint);
+    final Map<String , String> headers = {
+      "accept": "application/json",
+      "Content-Type": "application/json",
+    };
+    if(token != null){
+      headers["Authorization"] = "Bearer $token";
+    }
+    try {
+      final http.Response response = await http.get(
           url,
           headers: {
             "accept": "application/json",
             "Content-Type": "application/json",
-          }, body: jsonEncode(body));
-      return jsonDecode(response.body) as Map<String, dynamic>;
+            "Authorization": "Bearer $token",
+          },);
+      final responseBody = jsonDecode(response.body) as Map<String, dynamic>;
+      if(response.statusCode >= 200 && response.statusCode < 300){
+        return responseBody;
+      }else{
+        throw Exception( responseBody["message"] ?? "Something Went Wrong");
+      }
     } catch (e) {
       throw Exception("Failed To Load Data ");
     }
