@@ -23,7 +23,9 @@ class ProfileScreen extends StatelessWidget {
         return ProfileCubit()..getUserDate();
       },
       child: Scaffold(
-        appBar: AppBar(centerTitle: true, title: const Text("Profile")),
+        appBar: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: true, title: const Text("Profile")),
         body: Padding(
           padding: EdgeInsets.symmetric(vertical: AppSize.h24, horizontal: AppSize.w16),
           child: BlocBuilder<ProfileCubit , ProfileState>(
@@ -109,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (BuildContext context) {
-                              return const LoginScreen();
+                              return  LoginScreen();
                             },
                           ),
                         );

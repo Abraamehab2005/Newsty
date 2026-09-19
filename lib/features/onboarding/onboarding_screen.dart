@@ -15,7 +15,7 @@ class OnboardingScreen extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return const LoginScreen();
+          return  LoginScreen();
         },
       ),
     );
