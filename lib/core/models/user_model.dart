@@ -12,7 +12,9 @@ class UserModel {
   String? countryName;
   @HiveField(4)
   String? countryCode;
-  String? accessToken ;
+  @HiveField(5)
+  String? accessToken;
+  @HiveField(6)
   String? refreshToken;
 
   UserModel({
@@ -21,7 +23,7 @@ class UserModel {
     this.password,
     this.countryName,
     this.countryCode,
-    this.accessToken ,
+    this.accessToken,
     this.refreshToken ,
   });
 

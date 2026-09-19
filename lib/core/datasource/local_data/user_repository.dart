@@ -33,7 +33,7 @@ class UserRepository {
     await userBox.put(Constans.currentUser, user);
   }
 
-  getUser() => userBox.get(Constans.currentUser);
+  UserModel? getUser() => userBox.get(Constans.currentUser);
 
   updateUser({
     String? name,

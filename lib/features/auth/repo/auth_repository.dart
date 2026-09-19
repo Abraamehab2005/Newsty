@@ -1,3 +1,4 @@
+import 'package:flutter/animation.dart';
 import 'package:news_app/core/datasource/remote_data/api_config.dart';
 import 'package:news_app/core/datasource/remote_data/api_service.dart';
 import 'package:news_app/core/models/user_model.dart';
@@ -11,8 +12,7 @@ class AuthRepository {
     final response =  await apiService.post(ApiConfig.login, ApiConfig.authBaseUrl , body:{
       "username":username,
       "password": password,
-      "expiresInMins" : 30
-    }
+      "expiresInMins" : 30,}
     );
    UserModel model = UserModel.fromAuthResponse(response, username);
   await _saveUser(model);

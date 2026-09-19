@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:news_app/core/datasource/local_data/user_repository.dart';
 import 'package:news_app/core/datasource/remote_data/api_config.dart';
 abstract class BaseApiService {
   Future<dynamic> get(String endPoint, String baseUrl,{Map<String, dynamic>? params});
-  Future<dynamic> post(String endPoint, String baseUrl,{Map<String, dynamic>? body, String? token});
+  Future<dynamic> post(String endPoint, String baseUrl,{Map<String, dynamic>? body});
   Future<dynamic> getWithToken(String endPoint, String baseUrl,String? token);
 
 }
@@ -26,12 +27,13 @@ class ApiService extends BaseApiService {
   }
 
   @override
-  Future<dynamic> post(String endPoint, String baseUrl, {Map<String, dynamic>? body , String? token}) async{
+  Future<dynamic> post(String endPoint, String baseUrl, {Map<String, dynamic>? body}) async{
     var url = Uri.https(baseUrl, endPoint);
     final Map<String , String> headers = {
       "accept": "application/json",
       "Content-Type": "application/json",
     };
+    final token = UserRepository().getUser()?.accessToken;
     if(token != null){
       headers["Authorization"] = "Bearer $token";
     }
@@ -66,11 +68,7 @@ class ApiService extends BaseApiService {
     try {
       final http.Response response = await http.get(
           url,
-          headers: {
-            "accept": "application/json",
-            "Content-Type": "application/json",
-            "Authorization": "Bearer $token",
-          },);
+          headers: headers);
       final responseBody = jsonDecode(response.body) as Map<String, dynamic>;
       if(response.statusCode >= 200 && response.statusCode < 300){
         return responseBody;

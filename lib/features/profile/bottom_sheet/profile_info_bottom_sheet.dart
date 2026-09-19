@@ -27,9 +27,9 @@ class _ProfileInfoBottomSheetState extends State<ProfileInfoBottomSheet> {
   }
 
   void _loadUserData() {
-    final UserModel user = UserRepository().getUser();
-    emailController.text = user.email ?? "";
-    usernameController.text = user.name ?? "";
+    final UserModel? user = UserRepository().getUser();
+    emailController.text = user?.email ?? "";
+    usernameController.text = user?.name  ?? "";
   }
 
   void _saveUserData() async {

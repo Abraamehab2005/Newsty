@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/constans/app_size.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
 import 'package:news_app/core/datasource/local_data/user_repository.dart';
+import 'package:news_app/core/enums/request_status_enum.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
 import 'package:news_app/features/auth/register_screen.dart';
 import 'package:news_app/features/auth/repo/auth_repository.dart';
@@ -26,8 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _form = GlobalKey();
 
   bool isVisible = false;
-  bool isLoading = false;
-  String? errorMessage;
+
 
   @override
   void dispose() {
@@ -36,46 +36,20 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-
-  void login() async {
-    setState(() {
-      errorMessage = null;
-      isLoading = true;
-    });
-    await Future.delayed(const Duration(seconds: 3));
-    final String? error = UserRepository().login(
-      usernameController.text,
-      passwordController.text,
-    );
-    if (error != null) {
-      setState(() {
-        errorMessage = error;
-        isLoading = false;
-      });
-      return;
-    }
-
-    await PreferencesManager().setBool("is_logged_in", true);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) {
-          return const MainScreen();
-        },
-      ),
-    );
-    setState(() {
-      errorMessage = null;
-      isLoading = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
   create: (context) => AuthCubit(AuthRepository(ApiService())),
   child: Scaffold(
-      body: SafeArea(
+      body: BlocListener< AuthCubit, AuthState>(
+  listener: (context, state) {
+    if(state.authStatus == RequestStatusEnum.loaded){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) {
+        return MainScreen();
+      }));
+    }
+  },
+  child: SafeArea(
         child: Container(
           width: double.infinity,
           height: double.infinity,
@@ -143,10 +117,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
-                      if (errorMessage != null)
+                      if (state.errorMessage != null)
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: AppSize.ph8),
-                          child: Text(errorMessage!, style: const TextStyle(color: Colors.red)),
+                          child: Text(state.errorMessage!, style: const TextStyle(color: Colors.red)),
                         ),
                       SizedBox(height: AppSize.ph24),
                       SizedBox(
@@ -155,11 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_form.currentState?.validate() ?? false) {
-                              //login();
                               context.read<AuthCubit>().login(username: usernameController.text, password: passwordController.text);
                             }
                           },
-                          child: isLoading
+                          child: state.authStatus ==RequestStatusEnum.loading
                               ? const CircularProgressIndicator()
                               : const Text('Sign In'),
                         ),
@@ -204,6 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
 ),
         ),
       ),
+),
     ),
 );
   }

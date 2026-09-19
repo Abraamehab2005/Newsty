@@ -4,6 +4,8 @@ import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
 import 'package:news_app/core/datasource/local_data/user_repository.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
 import 'package:news_app/features/main/main_screen.dart';
+
+import 'login_screen.dart';
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
   @override
@@ -52,7 +54,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       context,
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return const MainScreen();
+          return  LoginScreen();
+         // return const MainScreen();
         },
       ),
     );
@@ -145,7 +148,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       CustomTextFormField(
                         controller: comfirmPasswordController,
                         hintText: "*************",
-                        title: "Confirm Passward",
+                        title: "Confirm Password",
                         obscureText: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
