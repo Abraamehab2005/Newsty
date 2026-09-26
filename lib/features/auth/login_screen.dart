@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-  create: (context) => AuthCubit(AuthRepository(ApiService())),
+  create: (context) => AuthCubit(AuthRepository(AuthApiService())),
   child: Scaffold(
       body: BlocListener< AuthCubit, AuthState>(
   listener: (context, state) {

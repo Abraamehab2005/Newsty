@@ -24,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthCubit>(
-  create: (context) => AuthCubit(AuthRepository(ApiService())),
+  create: (context) => AuthCubit(AuthRepository(AuthApiService())),
   child: Scaffold(
       body: SafeArea(
         child: BlocListener<AuthCubit, AuthState>

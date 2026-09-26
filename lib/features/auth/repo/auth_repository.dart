@@ -8,7 +8,7 @@ import '../../../core/datasource/remote_data/auth/auth_api_service.dart';
 
 class AuthRepository {
   AuthRepository(this.apiService);
-   final ApiService apiService;
+   final AuthApiService apiService;
   Future<UserModel?> login({required String username, required String password}) async {
     final response =  await apiService.post(AuthApiConfig.login, AuthApiConfig.authBaseUrl , body:{
       "username":username,

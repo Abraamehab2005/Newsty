@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:news_app/core/datasource/local_data/user_repository.dart';
 import 'package:news_app/core/datasource/remote_data/auth/auth_api_config.dart';
-abstract class AuthApiService {
+abstract class AuthBaseApiService {
   Future<dynamic> post(String endPoint, String baseUrl,{Map<String, dynamic>? body});
 }
 
-class ApiService extends AuthApiService {
+class AuthApiService extends AuthBaseApiService {
 
   @override
   Future<dynamic> post(String endPoint, String baseUrl, {Map<String, dynamic>? body}) async{
