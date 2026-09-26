@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
@@ -5,7 +6,7 @@ import 'package:news_app/core/datasource/local_data/user_repository.dart';
 import 'package:news_app/core/theme/light_theme.dart';
 import 'package:news_app/features/bookmark/data/bookmark_repository.dart';
 import 'package:news_app/features/splash/splash_screen.dart';
-
+GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
@@ -24,6 +25,7 @@ class NewsApp extends StatelessWidget {
       builder: (ctx, _) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
+          navigatorKey: navigationKey,
           theme: lightTheme,
           home: const SplashScreen(),
         );

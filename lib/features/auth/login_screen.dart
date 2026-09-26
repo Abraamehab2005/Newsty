@@ -9,7 +9,8 @@ import 'package:news_app/features/auth/register_screen.dart';
 import 'package:news_app/features/auth/repo/auth_repository.dart';
 import 'package:news_app/features/main/main_screen.dart';
 
-import '../../core/datasource/remote_data/api_service.dart';
+import '../../core/datasource/remote_data/auth/auth_api_service.dart';
+import '../../core/datasource/remote_data/news/news_api_service.dart';
 import 'cubit/auth_cubit.dart';
 
 class LoginScreen extends StatelessWidget {

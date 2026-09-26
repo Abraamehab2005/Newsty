@@ -7,9 +7,7 @@ import 'package:news_app/features/auth/repo/auth_repository.dart';
 
 import '../../../core/datasource/local_data/preferences_manager.dart';
 import '../../../core/enums/request_status_enum.dart';
-
 part 'auth_state.dart';
-
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authRepository) : super(const AuthState());
   AuthRepository authRepository;
