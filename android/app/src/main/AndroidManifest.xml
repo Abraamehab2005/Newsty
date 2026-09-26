@@ -4,7 +4,7 @@
 
     
     <application
-        android:label="news_app"
+        android:label="Newsty"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
