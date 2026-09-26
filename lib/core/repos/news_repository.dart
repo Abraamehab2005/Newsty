@@ -1,4 +1,3 @@
-import 'package:news_app/core/datasource/remote_data/auth/auth_api_config.dart';
 import 'package:news_app/core/datasource/remote_data/news/news_api_service.dart';
 import 'package:news_app/features/home/models/news_article_model.dart';
 

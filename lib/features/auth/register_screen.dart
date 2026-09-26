@@ -6,9 +6,7 @@ import 'package:news_app/features/auth/cubit/auth_cubit.dart';
 import 'package:news_app/features/auth/repo/auth_repository.dart';
 import 'package:news_app/features/main/main_screen.dart';
 import '../../core/datasource/remote_data/auth/auth_api_service.dart';
-import '../../core/datasource/remote_data/news/news_api_service.dart';
 import '../../core/enums/request_status_enum.dart';
-import 'login_screen.dart';
 class RegisterScreen extends StatelessWidget {
    RegisterScreen({super.key});
   final GlobalKey<FormState> _formKey = GlobalKey();

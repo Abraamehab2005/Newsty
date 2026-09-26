@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import '../auth/auth_api_config.dart';
 import '../interceptors/api_key_interceptor.dart';
 import '../interceptors/logging_interceptors.dart';
 import 'news_api_config.dart';

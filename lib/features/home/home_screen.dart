@@ -7,7 +7,6 @@ import 'package:news_app/features/home/cubit/home_cubit.dart';
 import 'package:news_app/core/repos/news_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/datasource/remote_data/auth/auth_api_service.dart';
 
 
 class HomeScreen extends StatelessWidget {

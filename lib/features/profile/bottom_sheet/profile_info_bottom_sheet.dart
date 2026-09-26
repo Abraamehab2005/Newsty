@@ -69,7 +69,7 @@ class _ProfileInfoBottomSheetState extends State<ProfileInfoBottomSheet> {
                     width: AppSize.w42,
                     height: AppSize.h4,
                     decoration: BoxDecoration(
-                      color: Color(0xFF363636),
+                      color: const Color(0xFF363636),
                       borderRadius: BorderRadius.circular(100),
                     ),
                   ),
@@ -120,7 +120,7 @@ class _ProfileInfoBottomSheetState extends State<ProfileInfoBottomSheet> {
                   onPressed: () {
                     _saveUserData();
                   },
-                  child: Text("Save"),
+                  child: const Text("Save"),
                 ),
                 SizedBox(height: AppSize.ph16),
               ],

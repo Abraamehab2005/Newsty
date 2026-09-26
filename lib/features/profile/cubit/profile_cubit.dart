@@ -9,7 +9,7 @@ import '../../../core/models/user_model.dart';
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit() : super(ProfileState());
+  ProfileCubit() : super(const ProfileState());
 
   void pickImage(ImageSource source) async {
     emit(state.copyWith(

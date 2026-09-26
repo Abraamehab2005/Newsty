@@ -22,7 +22,7 @@ class AuthInterceptor extends Interceptor{
        UserRepository().delete();
        PreferencesManager().clear();
        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
-       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Session Expire, Please Login Again")));
+       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Session Expire, Please Login Again")));
      }
      handler.next(err);
     }

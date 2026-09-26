@@ -19,7 +19,7 @@ class UserRepository {
     return _userBox!;
   }
 
-  init() async {
+  Future<void> init() async {
     await Hive.initFlutter();
 
     if (!Hive.isAdapterRegistered(0)) {
@@ -29,13 +29,13 @@ class UserRepository {
     _userBox = await Hive.openBox(Constans.userBox);
   }
 
-  saveUser(UserModel user) async {
+  Future<void> saveUser(UserModel user) async {
     await userBox.put(Constans.currentUser, user);
   }
 
   UserModel? getUser() => userBox.get(Constans.currentUser);
 
-  updateUser({
+  Future<void> updateUser({
     String? name,
     String? email,
     String? password,
@@ -57,11 +57,11 @@ class UserRepository {
     }
   }
 
-  delete() async {
+  Future<void> delete() async {
     await userBox.delete(Constans.currentUser);
   }
 
-  clearAll() async {
+  Future<void> clearAll() async {
     await userBox.clear();
   }
 

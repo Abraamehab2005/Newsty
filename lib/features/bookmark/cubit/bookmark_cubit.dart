@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 import '../../../core/enums/request_status_enum.dart';
 import '../../home/models/news_article_model.dart';

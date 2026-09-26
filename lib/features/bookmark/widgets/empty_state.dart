@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/constans/app_size.dart';
-import 'package:news_app/features/bookmark/cubit/bookmark_cubit.dart';
 class EmptyState extends StatelessWidget {
   const EmptyState({super.key});
   @override

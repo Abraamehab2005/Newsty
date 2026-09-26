@@ -1,6 +1,4 @@
-import 'package:flutter/animation.dart';
 import 'package:news_app/core/datasource/remote_data/auth/auth_api_config.dart';
-import 'package:news_app/core/datasource/remote_data/news/news_api_service.dart';
 import 'package:news_app/core/models/user_model.dart';
 
 import '../../../core/datasource/local_data/user_repository.dart';

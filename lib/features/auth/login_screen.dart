@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/constans/app_size.dart';
-import 'package:news_app/core/datasource/local_data/preferences_manager.dart';
-import 'package:news_app/core/datasource/local_data/user_repository.dart';
 import 'package:news_app/core/enums/request_status_enum.dart';
 import 'package:news_app/core/widgets/custom_text_form_field.dart';
 import 'package:news_app/features/auth/register_screen.dart';
@@ -10,7 +8,6 @@ import 'package:news_app/features/auth/repo/auth_repository.dart';
 import 'package:news_app/features/main/main_screen.dart';
 
 import '../../core/datasource/remote_data/auth/auth_api_service.dart';
-import '../../core/datasource/remote_data/news/news_api_service.dart';
 import 'cubit/auth_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -31,7 +28,7 @@ class LoginScreen extends StatelessWidget {
   listener: (context, state) {
     if(state.authStatus == RequestStatusEnum.loaded){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) {
-        return MainScreen();
+        return const MainScreen();
       }));
     }
   },
